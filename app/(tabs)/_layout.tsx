@@ -1,37 +1,49 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+import HomeScreen from "@/app/(tabs)";
+import { CustomTabBar } from "@/components/navigation/CustomTabBar";
 
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import React from "react";
+import CreatePartyScreen from "./party/create";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+   const Tab = createBottomTabNavigator();
 
-  return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
-          ),
-        }}
-      />
-    </Tabs>
-  );
+   return (
+      <Tab.Navigator
+         screenOptions={{
+            headerShown: false,
+            tabBarHideOnKeyboard: true,
+            tabBarShowLabel: false,
+            tabBarActiveTintColor: "#121212",
+
+            tabBarStyle: {
+               backgroundColor: "#FFF",
+               borderTopWidth: 0,
+            },
+         }}
+         tabBar={(props) => <CustomTabBar {...props} />}
+      >
+         <Tab.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{
+               tabBarIcon: "home" as any,
+            }}
+         />
+         <Tab.Screen
+            name="Money"
+            component={CreatePartyScreen}
+            options={{
+               tabBarIcon: "party-popper" as any,
+            }}
+         />
+         <Tab.Screen
+            name="Store"
+            component={HomeScreen}
+            options={{
+               tabBarIcon: "account" as any,
+            }}
+         />
+      </Tab.Navigator>
+   );
 }
