@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "party-everyday-app",
-    "slug": "party-everyday-app",
+    "slug": "party-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -31,6 +31,15 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "d1999835-7a19-4b43-9cd9-b76b4b5bda4f"
+      }
+    },
+    "owner": "omega-studies"
   }
 }

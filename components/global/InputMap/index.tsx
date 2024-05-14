@@ -1,10 +1,9 @@
+import useMapPickerFocus from "@/hooks/useMapPickerFocus";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { IconButton } from "@react-native-material/core";
-
 import { useState } from "react";
-import { StyleSheet, View } from "react-native";
-import MapView from "react-native-maps";
 import TextInput from "../Input";
+import MapPicker from "../MapPicker";
 
 interface InputMapProps {
    label: string;
@@ -20,6 +19,21 @@ export default function InputMap({
    setValue,
 }: InputMapProps) {
    const [showMapPicker, setShowMapPicker] = useState<boolean>(false);
+   const {
+      longDelta,
+      latDelta,
+      ITEM_WIDTH,
+      ITEM_HEIGHT,
+      FLAT_LIST_ITEM_WIDTH,
+      state,
+      scrollX,
+      snapPoints,
+   } = useMapPickerFocus({
+      title: "Party",
+      lat: -23.5489,
+      long: -46.6388,
+      images: [],
+   });
 
    return (
       <>
@@ -29,47 +43,27 @@ export default function InputMap({
             placeholder={placeholder}
             value={value}
             onChangeText={(text) => setValue(text)}
-            style={{ margin: 16 }}
+            style={{
+               marginTop: 16,
+               marginLeft: 16,
+               marginRight: 16,
+            }}
             trailing={(props) => (
                <IconButton
                   icon={(props) => <Icon name={"google-maps"} {...props} />}
-                  onPress={() => setShowMapPicker(!showMapPicker)}
                />
             )}
+            onPress={() => setShowMapPicker(!showMapPicker)}
          />
-         <View
-            style={{
-               //display: showMapPicker ? "flex" : "none",
-               position: "absolute",
-               bottom: 0,
-               width: "100%",
-               flex: 1,
-               backgroundColor: "#F5FCFF",
-            }}
-         >
-            <MapView
-               style={styles.map}
-               region={{
-                  latitude: 37.78825,
-                  longitude: -122.4324,
-                  latitudeDelta: 0.015,
-                  longitudeDelta: 0.0121,
-               }}
-            />
-         </View>
+         <MapPicker
+            snapPoints={snapPoints}
+            width={ITEM_WIDTH}
+            height={ITEM_HEIGHT}
+            latDelta={latDelta}
+            longDelta={longDelta}
+            lat={-23.5489}
+            long={-46.6388}
+         />
       </>
    );
 }
-
-const styles = StyleSheet.create({
-   container: {
-      ...StyleSheet.absoluteFillObject,
-      height: 400,
-      width: 400,
-      justifyContent: "flex-end",
-      alignItems: "center",
-   },
-   map: {
-      ...StyleSheet.absoluteFillObject,
-   },
-});
