@@ -1,6 +1,7 @@
 import InputDate from "@/components/global/InputDate";
 import InputMap from "@/components/global/InputMap";
 import InputText from "@/components/global/InputText";
+import { ICoordinates } from "@/interfaces/coordinates.interface";
 import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
@@ -8,7 +9,10 @@ export default function CreatePartyScreen() {
    const [name, setName] = useState<string>("");
    const [description, setDescription] = useState<string>("");
    const [date, setDate] = useState<string>("");
-   const [location, setLocation] = useState<string>("");
+   const [location, setLocation] = useState<ICoordinates>({
+      latitude: 0,
+      longitude: 0,
+   });
 
    return (
       <View style={style.container}>
@@ -47,12 +51,7 @@ export default function CreatePartyScreen() {
             value={date}
             setValue={setDate}
          />
-         <InputMap
-            label="Location"
-            placeholder={"Your party location"}
-            value={location}
-            setValue={setLocation}
-         />
+         <InputMap />
       </View>
    );
 }
