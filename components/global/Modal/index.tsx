@@ -30,18 +30,22 @@ export default function CustomModal({
             <View style={styles.centeredView}>
                <View style={styles.modalView}>
                   {children}
-                  <Pressable
-                     style={[styles.button, styles.buttonClose]}
-                     onPress={() => setVisible(!visible)}
-                  >
-                     <Text style={styles.textStyle}>Cancel</Text>
-                  </Pressable>
-                  <Pressable
-                     style={[styles.button, styles.buttonClose]}
-                     onPress={handleSubmit}
-                  >
-                     <Text style={styles.textStyle}>Submit</Text>
-                  </Pressable>
+
+                  <View style={styles.footer}>
+                     <Pressable
+                        style={[styles.button, styles.buttonClose]}
+                        onPress={() => setVisible(!visible)}
+                     >
+                        <Text style={styles.textStyle}>Cancel</Text>
+                     </Pressable>
+
+                     <Pressable
+                        style={[styles.button, styles.buttonClose]}
+                        onPress={handleSubmit}
+                     >
+                        <Text style={styles.textStyle}>Submit</Text>
+                     </Pressable>
+                  </View>
                </View>
             </View>
          </Modal>
@@ -72,25 +76,25 @@ const styles = StyleSheet.create({
       elevation: 5,
    },
    button: {
-      borderRadius: 20,
-      padding: 20,
+      backgroundColor: "black",
+      padding: 16,
+      borderRadius: 5,
       elevation: 2,
-   },
-   buttonOpen: {
-      backgroundColor: "#F194FF",
+      width: "47%",
    },
    buttonClose: {
-      borderRadius: 5,
-      margin: 10,
-      backgroundColor: "#2196F3",
+      backgroundColor: "black",
    },
    textStyle: {
       color: "white",
       fontWeight: "bold",
       textAlign: "center",
    },
-   modalText: {
-      marginBottom: 15,
-      textAlign: "center",
+   footer: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      width: "107%",
+      bottom: 100,
+      marginTop: 16,
    },
 });

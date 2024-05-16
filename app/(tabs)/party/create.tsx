@@ -51,7 +51,7 @@ export default function CreatePartyScreen() {
             value={date}
             setValue={setDate}
          />
-         <InputMap />
+         <InputMap location={location} setLocation={setLocation} />
       </View>
    );
 }

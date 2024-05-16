@@ -1,19 +1,22 @@
 import { ICoordinates } from "@/interfaces/coordinates.interface";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { IconButton, TextInput } from "@react-native-material/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import MapViewerTest from "../MapViewer";
+import MapViewer from "../MapViewer";
 import CustomModal from "../Modal";
 
-export default function InputMap() {
+interface InputMapProps {
+   location: ICoordinates;
+   setLocation: (location: ICoordinates) => void;
+}
+
+export default function InputMap({ location, setLocation }: InputMapProps) {
    const [search, setSearch] = useState<string>("");
    const [visible, setVisible] = useState(false);
-   const [location, setLocation] = useState<ICoordinates>({
-      latitude: 0,
-      longitude: 0,
-   });
+
+   useEffect(() => {}, [location]);
 
    return (
       <>
@@ -59,6 +62,7 @@ export default function InputMap() {
                      textInputProps={{
                         autoFocus: true,
                         blurOnSubmit: false,
+                        onChangeText: (text) => setSearch(text),
                      }}
                      listEmptyComponent={<ListViewEmtpy />}
                      styles={{
@@ -80,11 +84,7 @@ export default function InputMap() {
                   />
                </View>
                <View style={style.mapview}>
-                  <MapViewerTest
-                     latitude={location.latitude}
-                     longitude={location.longitude}
-                     setRegion={setLocation}
-                  />
+                  <MapViewer location={location} setRegion={setLocation} />
                </View>
             </SafeAreaView>
          </CustomModal>

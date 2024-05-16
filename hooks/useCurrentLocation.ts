@@ -17,14 +17,15 @@ export default function useCurrentLocation() {
 
    useEffect(() => {
       (async () => {
-
          let { status } = await Location.requestForegroundPermissionsAsync();
+
          if (status !== 'granted') {
             console.log('Permission to access location was denied');
             return;
          }
 
          let location = await Location.getCurrentPositionAsync({});
+
          setLocation(location);
       })();
    }, []);
