@@ -28,7 +28,7 @@ export default function InputDate({
             placeholder={placeholder}
             value={value}
             onChangeText={(text) => setValue(text)}
-            style={{ margin: 16 }}
+            style={{ marginTop: 16, marginLeft: 16, marginRight: 16 }}
             trailing={(props) => (
                <IconButton
                   icon={(props) => <Icon name={"calendar"} {...props} />}

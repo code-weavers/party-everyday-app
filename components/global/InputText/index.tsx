@@ -20,23 +20,7 @@ export default function InputText({
          placeholder={placeholder}
          value={value}
          onChangeText={(text) => setValue(text)}
-         style={{ margin: 16 }}
+         style={{ marginTop: 16, marginLeft: 16, marginRight: 16 }}
       />
    );
 }
-
-/*const styles = StyleSheet.create({
-   input: {
-      height: 40,
-      margin: 12,
-      borderWidth: 1,
-      padding: 10,
-   },
-});
-
-<TextInput
-            style={styles.input}
-            placeholder={placeholder}
-            value={value}
-            onChangeText={(text) => setValue(text)}
-         />*/

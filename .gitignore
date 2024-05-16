@@ -1,5 +1,4 @@
 node_modules/
-.expo/
 dist/
 npm-debug.*
 *.jks
@@ -18,3 +17,6 @@ web-build/
 
 expo-env.d.ts
 # @end expo-cli
+
+.env*.local
+.env
