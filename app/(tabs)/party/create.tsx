@@ -1,65 +1,30 @@
-import InputDate from "@/components/global/InputDate";
-import InputMap from "@/components/global/InputMap";
-import InputText from "@/components/global/InputText";
-import { ICoordinates } from "@/interfaces/coordinates.interface";
-import { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { PartyStep } from "@/constants/Party";
+import { useEffect, useState } from "react";
+import GuestListScreen from "./guests";
+import InformationPartyScreen from "./informations";
 
 export default function CreatePartyScreen() {
-   const [name, setName] = useState<string>("");
-   const [description, setDescription] = useState<string>("");
-   const [date, setDate] = useState<string>("");
-   const [location, setLocation] = useState<ICoordinates>({
-      latitude: 0,
-      longitude: 0,
-   });
+   const [step, setStep] = useState<number>(PartyStep.Information);
 
-   return (
-      <View style={style.container}>
-         <Text
-            style={{
-               fontSize: 24,
-               fontWeight: "bold",
-               margin: 16,
-            }}
-         >
-            Create your Party
-         </Text>
-         <Text
-            style={{
-               fontSize: 20,
-               margin: 16,
-            }}
-         >
-            Plase fill the form below
-         </Text>
-         <InputText
-            label="Name"
-            placeholder="Let's set an name for your party"
-            value={name}
-            setValue={setName}
-         />
-         <InputText
-            label="Description"
-            placeholder="Let's set an description for your party"
-            value={description}
-            setValue={setDescription}
-         />
-         <InputDate
-            label="Date"
-            placeholder={"Your party date"}
-            value={date}
-            setValue={setDate}
-         />
-         <InputMap location={location} setLocation={setLocation} />
-      </View>
-   );
+   useEffect(() => {}, [step]);
+
+   return <>{renderStep(step, setStep)}</>;
 }
 
-const style = StyleSheet.create({
-   container: {
-      flex: 1,
-      backgroundColor: "#fff",
-      padding: 16,
-   },
-});
+function renderStep(step: number, set: (step: number) => void) {
+   switch (step) {
+      case PartyStep.Information:
+         return <InformationPartyScreen onNext={() => set(PartyStep.Guests)} />;
+      case PartyStep.Guests:
+         return (
+            <GuestListScreen
+               onPrevious={() => set(PartyStep.Information)}
+               onNext={() => set(PartyStep.Summary)}
+            />
+         );
+      case PartyStep.Summary:
+         return <></>;
+      default:
+         return <></>;
+   }
+}
