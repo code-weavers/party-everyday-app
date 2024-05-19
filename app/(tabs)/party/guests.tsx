@@ -1,12 +1,20 @@
 import ItemList from "@/components/ItemList";
 import CustomSubTitle from "@/components/global/CustomSubTitle";
 import CustomTitle from "@/components/global/CustomTitle";
+import StepperButton from "@/components/global/StepperButton";
+import { PartyStep } from "@/constants/Party";
 import { useGetAllUsers } from "@/hooks/user/useGetAllUsers";
-import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
+import { IUser } from "@/interfaces/user.interface";
+import { FlatList, StyleSheet, View } from "react-native";
 
 interface GuestListScreenProps {
    onPrevious: () => void;
    onNext: () => void;
+}
+
+interface IGuest {
+   user: IUser;
+   selected: boolean;
 }
 
 export default function GuestListScreen({
@@ -14,6 +22,10 @@ export default function GuestListScreen({
    onNext,
 }: GuestListScreenProps) {
    const { users } = useGetAllUsers();
+   const guests: IGuest[] = users.map((user) => ({
+      user,
+      selected: false,
+   }));
 
    return (
       <View style={styles.container}>
@@ -24,28 +36,18 @@ export default function GuestListScreen({
 
          <View style={styles.flatList}>
             <FlatList
-               data={users}
-               renderItem={({ item }) => <ItemList user={item} />}
-               keyExtractor={(item) => item.id}
+               data={guests}
+               renderItem={({ item }) => <ItemList guest={item} />}
+               keyExtractor={(item) => item.user.id}
             />
          </View>
 
-         <View style={styles.buttonContainer}>
-            <Pressable style={styles.button} onPress={onPrevious}>
-               <Text
-                  style={{ color: "white", textAlign: "center", fontSize: 16 }}
-               >
-                  Previous
-               </Text>
-            </Pressable>
-            <Pressable style={styles.button} onPress={onNext}>
-               <Text
-                  style={{ color: "white", textAlign: "center", fontSize: 16 }}
-               >
-                  Next
-               </Text>
-            </Pressable>
-         </View>
+         <StepperButton
+            steps={3}
+            currentStep={PartyStep.Guests}
+            onPrevious={onPrevious}
+            onNext={onNext}
+         />
       </View>
    );
 }
@@ -59,6 +61,8 @@ const styles = StyleSheet.create({
    flatList: {
       flex: 1,
       maxHeight: "60%",
+      width: "100%",
+      top: 10,
    },
    buttonContainer: {
       //display: "flex",

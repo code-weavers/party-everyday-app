@@ -1,9 +1,11 @@
 import InputDate from "@/components/global/InputDate";
 import InputMap from "@/components/global/InputMap";
 import InputText from "@/components/global/InputText";
+import StepperButton from "@/components/global/StepperButton";
+import { PartyStep } from "@/constants/Party";
 import { ICoordinates } from "@/interfaces/coordinates.interface";
 import { useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 interface InformationPartyScreenProps {
    onNext: () => void;
@@ -19,10 +21,6 @@ export default function InformationPartyScreen({
       latitude: 0,
       longitude: 0,
    });
-
-   const handleNext = () => {
-      onNext();
-   };
 
    return (
       <View style={styles.container}>
@@ -62,15 +60,11 @@ export default function InformationPartyScreen({
             setValue={setDate}
          />
          <InputMap location={location} setLocation={setLocation} />
-         <View style={styles.buttonContainer}>
-            <Pressable style={styles.button} onPress={handleNext}>
-               <Text
-                  style={{ color: "white", textAlign: "center", fontSize: 16 }}
-               >
-                  Next
-               </Text>
-            </Pressable>
-         </View>
+         <StepperButton
+            steps={3}
+            currentStep={PartyStep.Information}
+            onNext={onNext}
+         />
       </View>
    );
 }
@@ -80,21 +74,5 @@ const styles = StyleSheet.create({
       flex: 1,
       backgroundColor: "#fff",
       padding: 16,
-   },
-   buttonContainer: {
-      position: "absolute",
-      bottom: 150,
-      right: 0,
-      width: "100%",
-      flexDirection: "row", // Add this
-      justifyContent: "flex-end", // Add this
-      marginHorizontal: 32,
-   },
-   button: {
-      backgroundColor: "black",
-      padding: 16,
-      borderRadius: 5,
-      elevation: 2,
-      width: "50%",
    },
 });
