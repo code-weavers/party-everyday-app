@@ -1,13 +1,16 @@
 import HomeScreen from "@/app/(tabs)";
 import { CustomTabBar } from "@/components/navigation/CustomTabBar";
-
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
+import PartyScreen from "./party";
 import CreatePartyScreen from "./party/create";
+import ProfileScreen from "./profile";
 
-export default function TabLayout() {
-   const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
+function HomeTabs() {
    return (
       <Tab.Navigator
          screenOptions={{
@@ -31,19 +34,33 @@ export default function TabLayout() {
             }}
          />
          <Tab.Screen
-            name="Money"
-            component={CreatePartyScreen}
+            name="PartyScreen"
+            component={PartyScreen}
             options={{
                tabBarIcon: "party-popper" as any,
             }}
          />
          <Tab.Screen
-            name="Store"
-            component={HomeScreen}
+            name="Profile"
+            component={ProfileScreen}
             options={{
                tabBarIcon: "account" as any,
             }}
          />
       </Tab.Navigator>
+   );
+}
+
+export default function TabLayout() {
+   return (
+      <Stack.Navigator
+         screenOptions={{
+            headerShown: false,
+         }}
+      >
+         <Stack.Screen name="Home" component={HomeTabs} />
+         <Stack.Screen name="CreatePartyScreen" component={CreatePartyScreen} />
+         <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+      </Stack.Navigator>
    );
 }
