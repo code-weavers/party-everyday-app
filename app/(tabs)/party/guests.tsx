@@ -4,17 +4,13 @@ import CustomTitle from "@/components/global/CustomTitle";
 import StepperButton from "@/components/global/StepperButton";
 import { PartyStep } from "@/constants/Party";
 import { useGetAllUsers } from "@/hooks/user/useGetAllUsers";
-import { IUser } from "@/interfaces/user.interface";
+import { IGuest } from "@/interfaces/guest.interface";
+import StorageUtils from "@/utils/storage.utils";
 import { FlatList, StyleSheet, View } from "react-native";
 
 interface GuestListScreenProps {
    onPrevious: () => void;
    onNext: () => void;
-}
-
-interface IGuest {
-   user: IUser;
-   selected: boolean;
 }
 
 export default function GuestListScreen({
@@ -26,6 +22,25 @@ export default function GuestListScreen({
       user,
       selected: false,
    }));
+
+   const handleNext = async () => {
+      const newParty: string = await StorageUtils.get("new-party");
+      const newPartyParsed = JSON.parse(newParty);
+
+      StorageUtils.set(
+         "new-party",
+         JSON.stringify({
+            ...newPartyParsed,
+            guests: {
+               guests: guests
+                  .filter((guest) => guest.selected)
+                  .map((guest) => guest.user),
+            },
+         })
+      );
+
+      onNext();
+   };
 
    return (
       <View style={styles.container}>
@@ -46,7 +61,7 @@ export default function GuestListScreen({
             steps={3}
             currentStep={PartyStep.Guests}
             onPrevious={onPrevious}
-            onNext={onNext}
+            onNext={handleNext}
          />
       </View>
    );
@@ -63,23 +78,5 @@ const styles = StyleSheet.create({
       maxHeight: "60%",
       width: "100%",
       top: 10,
-   },
-   buttonContainer: {
-      //display: "flex",
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "space-between",
-      width: "100%",
-      position: "absolute",
-      bottom: 150,
-      right: 15,
-      //marginHorizontal: 32,
-   },
-   button: {
-      backgroundColor: "black",
-      padding: 16,
-      borderRadius: 5,
-      elevation: 2,
-      width: "47%",
    },
 });
