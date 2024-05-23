@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
    },
    summary: {
       flex: 1,
-      maxHeight: "60%",
+      maxHeight: "70%",
       width: "100%",
       top: 10,
       paddingRight: 16,
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
    },
    guests: {
       flex: 1,
-      maxHeight: "60%",
+      maxHeight: "70%",
       width: "100%",
       top: 10,
    },

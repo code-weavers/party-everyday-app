@@ -26,6 +26,7 @@ export default function InputPassword({
          onChangeText={(text) => setValue(text)}
          style={{ margin: 16 }}
          secureTextEntry={secureTextEntry}
+         textContentType="password"
          trailing={(props) => (
             <IconButton
                icon={(props) => (

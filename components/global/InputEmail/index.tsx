@@ -1,19 +1,19 @@
 import { TextInput } from "@react-native-material/core";
 import { StyleSheet } from "react-native";
 
-interface InputTextProps {
+interface InputEmailProps {
    label: string;
    placeholder: string;
    value: string;
    setValue: (text: string) => void;
 }
 
-export default function InputText({
+export default function InputEmail({
    label,
    placeholder,
    value,
    setValue,
-}: InputTextProps) {
+}: InputEmailProps) {
    return (
       <TextInput
          variant={"outlined"}
@@ -21,6 +21,7 @@ export default function InputText({
          placeholder={placeholder}
          value={value}
          onChangeText={(text) => setValue(text)}
+         textContentType="emailAddress"
          style={styles.input}
       />
    );

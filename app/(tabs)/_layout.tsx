@@ -1,10 +1,12 @@
-import HomeScreen from "@/app/(tabs)";
 import { CustomTabBar } from "@/components/navigation/CustomTabBar";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
+import HomeScreen from ".";
 import PartyScreen from "./party";
-import CreatePartyScreen from "./party/create";
+import PartyCheckoutScreen from "./party/checkout";
+import PartyContentScreen from "./party/content";
+import PartyCreateScreen from "./party/create";
 import ProfileScreen from "./profile";
 
 const Tab = createBottomTabNavigator();
@@ -27,7 +29,7 @@ function HomeTabs() {
          tabBar={(props) => <CustomTabBar {...props} />}
       >
          <Tab.Screen
-            name="Home"
+            name="HomeScreen"
             component={HomeScreen}
             options={{
                tabBarIcon: "home" as any,
@@ -59,8 +61,16 @@ export default function TabLayout() {
          }}
       >
          <Stack.Screen name="Home" component={HomeTabs} />
-         <Stack.Screen name="CreatePartyScreen" component={CreatePartyScreen} />
          <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+         <Stack.Screen name="CreatePartyScreen" component={PartyCreateScreen} />
+         <Stack.Screen
+            name="PartyContentScreen"
+            component={PartyContentScreen}
+         />
+         <Stack.Screen
+            name="PartyCheckoutScreen"
+            component={PartyCheckoutScreen}
+         />
       </Stack.Navigator>
    );
 }

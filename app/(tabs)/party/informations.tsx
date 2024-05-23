@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
    },
    form: {
       flex: 1,
-      maxHeight: "60%",
+      maxHeight: "70%",
       width: "100%",
       top: 10,
    },

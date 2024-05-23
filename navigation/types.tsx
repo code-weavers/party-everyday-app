@@ -5,7 +5,10 @@ export type RootStackParamList = {
    SignUp: undefined;
    SignIn: undefined;
    Home: undefined;
-   PartyScreen: { id?: string };
+   PartyScreen: undefined;
+   CreatePartyScreen: undefined;
+   PartyContentScreen: PartyContentScreenProps;
+   PartyCheckoutScreen: PartyCheckoutScreenProps;
    ProfileScreen: undefined;
 };
 
@@ -19,6 +22,14 @@ export type HomeTabScreenProps<T extends keyof HomeTabParamList> =
       BottomTabScreenProps<HomeTabParamList, T>,
       BottomTabScreenProps<RootStackParamList, "Home">
    >;
+
+type PartyContentScreenProps = {
+   id: string;
+};
+
+type PartyCheckoutScreenProps = {
+   id: string;
+};
 
 declare global {
    namespace ReactNavigation {

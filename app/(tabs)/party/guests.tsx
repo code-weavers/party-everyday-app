@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
    },
    flatList: {
       flex: 1,
-      maxHeight: "60%",
+      maxHeight: "70%",
       width: "100%",
       top: 10,
    },

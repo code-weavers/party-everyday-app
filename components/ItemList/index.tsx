@@ -1,15 +1,10 @@
-import { IUser } from "@/interfaces/user.interface";
+import { IGuest } from "@/interfaces/guest.interface";
 import { useState } from "react";
 import { StyleSheet, Text } from "react-native";
 import { Avatar, CheckBox, ListItem } from "react-native-elements";
 
-interface Guest {
-   user: IUser;
-   selected: boolean;
-}
-
 interface ItemListProps {
-   guest: Guest;
+   guest: IGuest;
 }
 
 export default function ItemList({ guest }: ItemListProps) {
@@ -17,13 +12,13 @@ export default function ItemList({ guest }: ItemListProps) {
 
    return (
       <ListItem key={guest.user.id} bottomDivider style={styles.container}>
-         <Avatar rounded source={{ uri: guest.user.avatar }} />
+         <Avatar rounded source={{ uri: guest.user.file.url }} />
          <ListItem.Content style={{ borderRadius: 5 }}>
             <ListItem.Title>
-               <Text>{guest.user.name}</Text>
+               <Text>{guest.user.username}</Text>
             </ListItem.Title>
             <ListItem.Subtitle>
-               <Text>{"Example"}</Text>
+               <Text>{"Online"}</Text>
             </ListItem.Subtitle>
          </ListItem.Content>
          <CheckBox
@@ -45,7 +40,6 @@ const styles = StyleSheet.create({
       width: "90%",
       borderRadius: 5,
 
-      // shadow
       shadowColor: "#000",
       shadowOffset: {
          width: 0,
