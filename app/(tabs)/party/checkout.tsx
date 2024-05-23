@@ -5,7 +5,7 @@ import { Dimensions, StyleSheet, View } from "react-native";
 
 const animationUrl = require("../../../assets/animations/submit-animation.json");
 
-export default function PartySubmitScreen() {
+export default function PartyCheckoutScreen() {
    const animation = useRef(null);
    const dimensions = Dimensions.get("window");
    const navigation = useNavigation();

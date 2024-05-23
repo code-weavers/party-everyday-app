@@ -2,10 +2,10 @@ import { PartyStep } from "@/constants/Party";
 import { ReactNode, useEffect, useState } from "react";
 import GuestListScreen from "./guests";
 import InformationPartyScreen from "./informations";
-import SubmitPartyScreen from "./submit";
+import PartySubmitScreen from "./submit";
 import PartySummaryScreen from "./summary";
 
-export default function CreatePartyScreen() {
+export default function PartyCreateScreen() {
    const [step, setStep] = useState<number>(PartyStep.Information);
    const handleSubmit = () => {
       //start animation, on click the submit button send to new component with image set timeout to 3 seconds and redirect to home
@@ -39,7 +39,7 @@ function renderStep(
             />
          );
       case PartyStep.Submit:
-         return <SubmitPartyScreen />;
+         return <PartySubmitScreen />;
       default:
          return <></>;
    }
