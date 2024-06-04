@@ -2,8 +2,8 @@ import type { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import type { CompositeScreenProps } from "@react-navigation/native";
 
 export type RootStackParamList = {
-   SignUp: undefined;
-   SignIn: undefined;
+   SignUpScreen: undefined;
+   SignInScreen: undefined;
    Home: undefined;
    PartyScreen: undefined;
    CreatePartyScreen: undefined;
