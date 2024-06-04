@@ -14,7 +14,10 @@ export const useCreateAdditionalInfo = () => {
       setName("");
       setValue("");
 
-      showToast("Additional info created", "success");
+      showToast({
+         message: "Additional info created!",
+         type: "success",
+      });
    };
 
    return {

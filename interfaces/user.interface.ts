@@ -10,7 +10,7 @@ export interface IUser {
    bankInfo?: IBankInfo
 }
 
-export interface IUserLoginRequest {
+export interface IAuthCredentials {
    email: string;
    password: string;
 }
