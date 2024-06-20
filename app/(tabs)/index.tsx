@@ -44,14 +44,14 @@ export default function HomeScreen() {
 						<FlatList
 							data={ownerParties}
 							renderItem={({ item }) => <PartyItemList party={item} />}
-							keyExtractor={(item) => item.id}
+							keyExtractor={(item) => String(item.id)}
 						/>
 					</TabView.Item>
 					<TabView.Item style={{ width: "100%" }}>
 						<FlatList
 							data={invitedParties}
 							renderItem={({ item }) => <PartyItemList party={item} />}
-							keyExtractor={(item) => item.id}
+							keyExtractor={(item) => String(item.id)}
 						/>
 					</TabView.Item>
 				</TabView>

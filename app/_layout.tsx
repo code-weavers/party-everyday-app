@@ -1,14 +1,14 @@
 import {
-   DarkTheme,
-   DefaultTheme,
-   ThemeProvider,
+	DarkTheme,
+	DefaultTheme,
+	ThemeProvider,
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
 
-import CustomSafeAreaView from "@/components/SafeAreaView";
+import SafeContainer from "@/components/global/SafeContainer";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Stack } from "expo-router";
@@ -17,33 +17,36 @@ import { Stack } from "expo-router";
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-   const colorScheme = useColorScheme();
-   const [loaded] = useFonts({
-      SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
-   });
+	const colorScheme = useColorScheme();
+	const [loaded] = useFonts({
+		SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+	});
 
-   useEffect(() => {
-      if (loaded) {
-         SplashScreen.hideAsync();
-      }
-   }, [loaded]);
+	useEffect(() => {
+		if (loaded) {
+			SplashScreen.hideAsync();
+		}
+	}, [loaded]);
 
-   if (!loaded) {
-      return null;
-   }
+	if (!loaded) {
+		return null;
+	}
 
-   const queryClient = new QueryClient();
+	const queryClient = new QueryClient();
 
-   return (
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-         <CustomSafeAreaView>
-            <QueryClientProvider client={queryClient}>
-            <Stack>
-               <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-               <Stack.Screen name="+not-found" />
-            </Stack>
-            </QueryClientProvider>
-         </CustomSafeAreaView>
-      </ThemeProvider>
-   );
+	return (
+		<ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+			<SafeContainer>
+				<QueryClientProvider client={queryClient}>
+					<Stack>
+						<Stack.Screen
+							name="(tabs)"
+							options={{ headerShown: false }}
+						/>
+						<Stack.Screen name="+not-found" />
+					</Stack>
+				</QueryClientProvider>
+			</SafeContainer>
+		</ThemeProvider>
+	);
 }

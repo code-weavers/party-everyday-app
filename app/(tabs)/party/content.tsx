@@ -29,7 +29,7 @@ export default function PartyContentScreen({ route }: any) {
 							style={styles.button}
 							onPress={() =>
 								navigation.navigate("PartyCheckoutScreen", {
-									id: party.id,
+									id: String(party.id),
 								})
 							}
 						>

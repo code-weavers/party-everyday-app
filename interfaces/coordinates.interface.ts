@@ -1,4 +1,10 @@
 export interface ICoordinates {
-   latitude: number;
-   longitude: number;
+   placeId?: string;
+   zipCode?: string;
+   state?: string;
+   city?: string;
+   street?: string;
+   number?: string;
+   lat: string;
+   lng: string;
 }

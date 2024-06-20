@@ -1,12 +1,34 @@
+import moment from 'moment';
 import { Linking, Platform } from "react-native";
 
+
 export function formatBRDate(date: string): string {
-   const options = { year: 'numeric', month: 'short', day: 'numeric' };
    return new Date(date).toLocaleDateString('pt-BR', {
       year: 'numeric',
       month: 'short',
       day: 'numeric',
    });
+}
+
+export function formatBRDateTime(date: string): string {
+   return new Date(date).toLocaleString('pt-BR', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+   });
+}
+
+export function formatToTimestamp(date: string): string {
+   const momentDate = moment(date, 'YYYY/MM/DD HH:mm');
+
+   if (!momentDate.isValid()) {
+      console.error(`Invalid date: ${date}`);
+      return '';  // or throw new Error(`Invalid date: ${date}`);
+   }
+
+   return momentDate.toISOString();
 }
 
 export function formatBRCurrency(amount: number): string {

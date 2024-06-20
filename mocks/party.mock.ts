@@ -16,8 +16,8 @@ export const parties: IParty[] = [
          city: 'São Paulo',
          state: 'SP',
          country: 'Brazil',
-         lat: -23.5505199,
-         lng: -46.6333094,
+         lat: '-23.5505199',
+         lng: '-46.6333094',
       },
       additionalInfo: [
          { id: 'new', name: '', value: 0, createdAt: '' },
@@ -71,8 +71,8 @@ export const parties: IParty[] = [
          city: 'Fernandopolis',
          state: 'SP',
          country: 'Brazil',
-         lat: -20.264911445322404,
-         lng: -50.24386374976725,
+         lat: '-20.264911445322404',
+         lng: '-50.24386374976725',
       },
       additionalInfo: [
          { id: 'new', name: '', value: 0, createdAt: '' },
@@ -126,8 +126,8 @@ export const parties: IParty[] = [
          city: 'São Paulo',
          state: 'SP',
          country: 'Brazil',
-         lat: -23.5505199,
-         lng: -46.6333094,
+         lat: '-23.5505199',
+         lng: '-46.6333094',
       }
    },
    {
@@ -144,8 +144,8 @@ export const parties: IParty[] = [
          city: 'São Paulo',
          state: 'SP',
          country: 'Brazil',
-         lat: -23.5505199,
-         lng: -46.6333094,
+         lat: '-23.5505199',
+         lng: '-46.6333094',
       }
    },
    {
@@ -162,8 +162,8 @@ export const parties: IParty[] = [
          city: 'São Paulo',
          state: 'SP',
          country: 'Brazil',
-         lat: -23.5505199,
-         lng: -46.6333094,
+         lat: '-23.5505199',
+         lng: '-46.6333094',
       }
    },
    {
@@ -180,8 +180,8 @@ export const parties: IParty[] = [
          city: 'São Paulo',
          state: 'SP',
          country: 'Brazil',
-         lat: -23.5505199,
-         lng: -46.6333094,
+         lat: '-23.5505199',
+         lng: '-46.6333094',
       },
       additionalInfo: [
          { id: 'new', name: '', value: 0, createdAt: '' },

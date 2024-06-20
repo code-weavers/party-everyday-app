@@ -5,88 +5,126 @@ import InputMap from "@/components/global/InputMap";
 import InputText from "@/components/global/InputText";
 import StepperButton from "@/components/global/StepperButton";
 import { PartyStep } from "@/constants/Party";
+import { useCreatePartyStore } from "@/hooks/useCreatePartyStore";
 import { ICoordinates } from "@/interfaces/coordinates.interface";
-import StorageUtils from "@/utils/storage.utils";
+import { getAddressByCoordinates } from "@/services/Google/geocoding.service";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { StyleSheet, View } from "react-native";
 
 interface InformationPartyScreenProps {
-   onNext: () => void;
+	onNext: () => void;
 }
 
+type FormData = {
+	name: string;
+	description: string;
+	date: string;
+	location: ICoordinates;
+};
+
 export default function InformationPartyScreen({
-   onNext,
+	onNext,
 }: InformationPartyScreenProps) {
-   const [name, setName] = useState<string>("");
-   const [description, setDescription] = useState<string>("");
-   const [date, setDate] = useState<string>("");
-   const [location, setLocation] = useState<ICoordinates>({
-      latitude: 0,
-      longitude: 0,
-   });
+	const [name, setName] = useState<string>("");
+	const [description, setDescription] = useState<string>("");
+	const [date, setDate] = useState<string>("");
+	const [location, setLocation] = useState<ICoordinates>({
+		lat: "",
+		lng: "",
+	});
+	const {
+		control,
+		handleSubmit,
+		formState: { errors, isDirty, isSubmitting, isValid },
+	} = useForm<FormData>({
+		defaultValues: { name, description, date, location },
+	});
+	const { party, setParty } = useCreatePartyStore();
 
-   const handleNext = () => {
-      StorageUtils.set(
-         "new-party",
-         JSON.stringify({
-            name,
-            description,
-            date,
-            location,
-            guests: [],
-         })
-      );
-      onNext();
-   };
+	console.log("DAte", date);
 
-   return (
-      <View style={styles.container}>
-         <View>
-            <CustomTitle title="Create your Party" />
-            <CustomSubTitle subtitle="Plase fill the form below" />
-         </View>
+	const handleNext = async () => {
+		const address = await getAddressByCoordinates({
+			lat: location.lat,
+			lng: location.lng,
+		});
 
-         <View style={styles.form}>
-            <InputText
-               label="Name"
-               placeholder="Let's set an name for your party"
-               value={name}
-               setValue={setName}
-            />
-            <InputText
-               label="Description"
-               placeholder="Let's set an description for your party"
-               value={description}
-               setValue={setDescription}
-            />
-            <InputDate
-               label="Date"
-               placeholder={"Your party date"}
-               value={date}
-               setValue={setDate}
-            />
-            <InputMap location={location} setLocation={setLocation} />
-         </View>
+		//TODO: Verify if Date are being setted correctly and when the screen is being mounted set the fields with the values from the store
 
-         <StepperButton
-            steps={3}
-            currentStep={PartyStep.Information}
-            onNext={handleNext}
-         />
-      </View>
-   );
+		setParty({
+			name,
+			description,
+			date,
+			address: {
+				zipCode: address.zipCode,
+				state: address.state,
+				city: address.city,
+				street: address.street,
+				number: address.number,
+				lat: location.lat,
+				lng: location.lng,
+			},
+		});
+
+		onNext();
+	};
+
+	return (
+		<View style={styles.container}>
+			<View>
+				<CustomTitle title="Create your Party" />
+				<CustomSubTitle subtitle="Plase fill the form below" />
+			</View>
+
+			<View style={styles.form}>
+				<InputText
+					label="Name"
+					placeholder="Let's set an name for your party"
+					value={party?.name ? party?.name : name}
+					setValue={setName}
+					control={control}
+				/>
+				<InputText
+					label="Description"
+					placeholder="Let's set an description for your party"
+					value={party?.description ? party?.description : description}
+					setValue={setDescription}
+					control={control}
+				/>
+				<InputDate
+					label="Date"
+					placeholder={"Your party date"}
+					value={party?.date ? party?.date : date}
+					setValue={setDate}
+					control={control}
+				/>
+				<InputMap
+					location={location}
+					setLocation={setLocation}
+					control={control}
+				/>
+			</View>
+
+			<StepperButton
+				steps={3}
+				currentStep={PartyStep.Information}
+				onNext={handleNext}
+			/>
+		</View>
+	);
 }
 
 const styles = StyleSheet.create({
-   container: {
-      flex: 1,
-      backgroundColor: "#fff",
-      padding: 16,
-   },
-   form: {
-      flex: 1,
-      maxHeight: "70%",
-      width: "100%",
-      top: 10,
-   },
+	container: {
+		flex: 1,
+		backgroundColor: "#fff",
+		padding: 16,
+	},
+	form: {
+		flex: 1,
+		maxHeight: "70%",
+		width: "100%",
+		top: 10,
+	},
 });
