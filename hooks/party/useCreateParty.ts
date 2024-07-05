@@ -1,4 +1,4 @@
-import { IAddress, ICreateAddress } from "@/interfaces/address.interface";
+import { ICreateAddress } from "@/interfaces/address.interface";
 import { ICustomError } from "@/interfaces/customError.interface";
 import { ICreateParty, IParty } from "@/interfaces/party.interface";
 import { api } from "@/services/Axios";
@@ -20,34 +20,24 @@ export const useCreateParty = (party: IParty) => {
       lng: String(party.address?.lng),
    }
 
-   const { mutate: addressMutate } = useMutation<IAddress, AxiosError<ICustomError>, ICreateAddress>({
-      mutationFn: async (): Promise<IAddress> => {
-         const { data } = await api.post<IAddress>('/addresses', address);
+   const partyContent: ICreateParty = {
+      name: String(party.name),
+      description: String(party.description),
+      date: String(party.date),
+      address,
+   };
 
-         return data;
-      },
-      onSuccess: (data) => {
-         showToast({
-            type: 'success',
-            message: `Endereço criado com sucesso!`,
-         });
-
-         queryClient.refetchQueries({ queryKey: ['addresses'] });
-         queryClient.refetchQueries({ queryKey: ['address'] });
-
-         return data;
-      },
-      onError: (error) => {
-         showToast({
-            type: 'error',
-            message: String(error.response?.data?.message),
-         });
-      },
-   });
+   if (party.guests?.length) {
+      partyContent.guests = party.guests.map((guest) => {
+         return {
+            id: guest.user.id,
+         };
+      });
+   }
 
    const { mutate: partyMutate } = useMutation<IParty, AxiosError<ICustomError>, ICreateParty>({
       mutationFn: async () => {
-         const { data } = await api.post<IParty>('/parties', address);
+         const { data } = await api.post<IParty>('/parties', partyContent);
 
          return data;
       },
@@ -68,37 +58,5 @@ export const useCreateParty = (party: IParty) => {
       },
    });
 
-   const handleSubmit = () => {
-      const address: ICreateAddress = {
-         zipCode: String(party.address?.zipCode),
-         state: String(party.address?.state),
-         city: String(party.address?.city),
-         street: String(party.address?.street),
-         number: Number(party.address?.number),
-         lat: String(party.address?.lat),
-         lng: String(party.address?.lng),
-      }
-
-      const createdAddress = addressMutate(address);
-
-      const partyContent: ICreateParty = {
-         name: String(party.name),
-         description: String(party.description),
-         date: String(party.date),
-         //@ts-ignore
-         addressId: createdAddress.id,
-      };
-
-      if (party.guests?.length) {
-         partyContent.guests = party.guests.map((guest) => {
-            return {
-               id: guest.user.id,
-            };
-         });
-      }
-
-      partyMutate(partyContent);
-   }
-
-   return { handleSubmit };
+   return { handleSubmit: partyMutate };
 };

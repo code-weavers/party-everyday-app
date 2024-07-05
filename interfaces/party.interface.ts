@@ -1,4 +1,4 @@
-import { IAddress } from "./address.interface";
+import { IAddress, ICreateAddress } from "./address.interface";
 import { IGuest } from "./guest.interface";
 
 export interface IParty {
@@ -23,7 +23,7 @@ export interface ICreateParty {
    name: string
    description: string
    date: string
-   addressId: string
+   address: ICreateAddress
    guests?: Guest[]
 }
 
