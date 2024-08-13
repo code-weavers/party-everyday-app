@@ -1,31 +1,30 @@
-import { formatToTimestamp } from "@/utils";
+import { formatBRDateTime, formatToTimestamp } from "@/utils";
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import DatePicker from "react-native-modern-datepicker";
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 interface InputDatePickerProps {
+	value: Date;
 	setValue: (date: Date) => void;
 	setOpen: (open: boolean) => void;
 }
 
 export default function InputDatePicker({
+	value,
 	setValue,
 	setOpen,
 }: InputDatePickerProps) {
 	const [selectedDate, setSelectedDate] = useState<string>("");
 
 	return (
-		<View>
-			<DatePicker
-				onSelectedChange={(date) => setSelectedDate(date)}
-				options={{
-					textHeaderColor: "#3f51b5",
-					textDefaultColor: "#000000",
-					selectedTextColor: "#ffffff",
-					mainColor: "#000",
-					textSecondaryColor: "#000000",
+		<View style={styles.container}>
+			<DateTimePicker
+				value={value}
+				onChange={(event, date) => {					
+					if (date) setValue(date);
 				}}
-				selected={selectedDate}
+				mode={'datetime'}
+				style={styles.datepicker}
 			/>
 
 			<View style={styles.buttonContainer}>
@@ -39,11 +38,7 @@ export default function InputDatePicker({
 				</Pressable>
 				<Pressable
 					style={styles.button}
-					onPress={() => {
-						const formattedDate = formatToTimestamp(selectedDate);
-						setValue(new Date(formattedDate));
-						setOpen(false);
-					}}
+					onPress={() => { setOpen(false)	}}
 				>
 					<Text style={styles.text}>Confirm</Text>
 				</Pressable>
@@ -53,6 +48,13 @@ export default function InputDatePicker({
 }
 
 const styles = StyleSheet.create({
+	container: {		
+		justifyContent: "center",
+		alignItems: "center",
+	},
+	datepicker: {
+		margin: 16,
+	},	
 	buttonContainer: {
 		flexDirection: "row",
 		alignItems: "center",

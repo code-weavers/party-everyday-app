@@ -1,10 +1,9 @@
 import { formatBRDateTime } from "@/utils";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-import { IconButton, TextInput } from "@react-native-material/core";
 import { Dialog } from "@rneui/themed";
 import { useEffect, useState } from "react";
 import { Controller } from "react-hook-form";
-import { StyleSheet } from "react-native";
+import { StyleSheet, TextInput, View } from "react-native";
 import InputDatePicker from "../DatePicker";
 
 interface InputDateProps {
@@ -37,33 +36,36 @@ export default function InputDate({
 				name={label}
 				rules={{ required: `${label} is required` }}
 				render={({ field: { onChange, value } }) => (
-					<TextInput
-						variant={"outlined"}
-						label={label}
-						placeholder={placeholder}
-						value={formatBRDateTime(date.toString())}
-						editable={false}
-						onChangeText={(text) => {
-							setValue(date.toString());
-							onChange(text);
-						}}
-						style={{ marginTop: 16, marginLeft: 16, marginRight: 16 }}
-						trailing={(props) => (
-							<IconButton
-								icon={(props) => <Icon name={"calendar"} {...props} />}
-								onPress={() => {
-									setShowDatePicker(!showDatePicker);
-									setVisible(true);
-								}}
-							/>
-						)}
-					/>
+					<View style={styles.container}>
+						<TextInput
+							placeholder={placeholder}
+							editable={false}
+							value={formatBRDateTime(date.toString())}
+							onChangeText={(text) => {
+								setValue(date.toString());
+								onChange(text);
+							}}
+							autoCorrect={true}
+							autoCapitalize="none"
+							style={styles.input}
+						/>
+						<Icon
+							name={'calendar'}
+							size={20}
+							color="#000"
+							style={styles.icon}	
+							onPress={() => {
+								setShowDatePicker(!showDatePicker);
+								setVisible(true);
+							}}
+						/>
+				</View>
 				)}
 			/>
 
 			<Dialog isVisible={visible} onBackdropPress={() => setVisible(false)}>
 				<Dialog.Title title="Select Date" />
-				<InputDatePicker setOpen={setVisible} setValue={setDate} />
+				<InputDatePicker setOpen={setVisible} value={new Date(value)} setValue={setDate} />
 			</Dialog>
 		</>
 	);
@@ -71,7 +73,23 @@ export default function InputDate({
 
 const styles = StyleSheet.create({
 	container: {
+		borderWidth: 1,
+		borderColor: "#000",
+		borderRadius: 5,
+
+		marginTop: 16,
+		marginLeft: 16,
+		marginRight: 16,
+		padding: 16,
+
+		flexDirection: 'row',
+		alignItems: 'center',			
+	},
+	icon: {
+		marginRight: 10,
+	},
+	input: {
 		flex: 1,
-		backgroundColor: "#F5FCFF",
+		fontSize: 16,		
 	},
 });

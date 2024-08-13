@@ -53,3 +53,7 @@ export function openMaps(name: string, lat: string, lng: string) {
 
    if (url) Linking.openURL(url);
 }
+
+export function firstLetterUpperCase(text: string) {
+   return text.charAt(0).toUpperCase() + text.slice(1);
+}

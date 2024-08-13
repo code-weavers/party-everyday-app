@@ -1,3 +1,4 @@
+import SafeContainer from "@/components/global/SafeContainer";
 import PartyContent from "@/components/Party/Content";
 import PartyHeader from "@/components/Party/Header";
 import { useGetParty } from "@/hooks/party/useGetParty";
@@ -13,32 +14,34 @@ export default function PartyContentScreen({ route }: any) {
 	const navigation = useNavigation();
 
 	return (
-		<View style={styles.container}>
-			{isLoading || !party ? (
-				<Text>Loading...</Text>
-			) : (
-				<>
-					<PartyHeader party={party} />
+		<SafeContainer>
+			<View style={styles.container}>
+				{isLoading || !party ? (
+					<Text>Loading...</Text>
+				) : (
+					<>
+						<PartyHeader party={party} />
 
-					<View style={styles.details}>
-						<PartyContent party={party} />
-					</View>
+						<View style={styles.details}>
+							<PartyContent party={party} />
+						</View>
 
-					{party.ownerId === user?.id && (
-						<Pressable
-							style={styles.button}
-							onPress={() =>
-								navigation.navigate("PartyCheckoutScreen", {
-									id: String(party.id),
-								})
-							}
-						>
-							<Text style={{ color: "white" }}>Checkout</Text>
-						</Pressable>
-					)}
-				</>
-			)}
-		</View>
+						{party.ownerId === user?.id && (
+							<Pressable
+								style={styles.button}
+								onPress={() =>
+									navigation.navigate("PartyCheckoutScreen", {
+										id: String(party.id),
+									})
+								}
+							>
+								<Text style={{ color: "white" }}>Checkout</Text>
+							</Pressable>
+						)}
+					</>
+				)}
+			</View>
+		</SafeContainer>		
 	);
 }
 

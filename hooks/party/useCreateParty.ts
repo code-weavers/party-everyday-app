@@ -23,7 +23,7 @@ export const useCreateParty = (party: IParty) => {
    const partyContent: ICreateParty = {
       name: String(party.name),
       description: String(party.description),
-      date: String(party.date),
+      date: String(new Date(String(party.date)).toISOString()),
       address,
    };
 
@@ -35,18 +35,13 @@ export const useCreateParty = (party: IParty) => {
       });
    }
 
-   const { mutate: partyMutate } = useMutation<IParty, AxiosError<ICustomError>, ICreateParty>({
+   const { mutate } = useMutation<IParty, AxiosError<ICustomError>>({
       mutationFn: async () => {
          const { data } = await api.post<IParty>('/parties', partyContent);
 
          return data;
       },
       onSuccess: (data) => {
-         showToast({
-            type: 'success',
-            message: `Rolê ${data.name} criado com sucesso!`,
-         });
-
          queryClient.refetchQueries({ queryKey: ['parties'] });
          queryClient.refetchQueries({ queryKey: ['party'] });
       },
@@ -58,5 +53,9 @@ export const useCreateParty = (party: IParty) => {
       },
    });
 
-   return { handleSubmit: partyMutate };
+   const handleSubmit = () => {
+      mutate();
+   };
+
+   return { handleSubmit };
 };

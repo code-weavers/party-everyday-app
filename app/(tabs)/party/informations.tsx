@@ -84,6 +84,7 @@ export default function InformationPartyScreen({
 					value={party?.name ? party?.name : name}
 					setValue={setName}
 					control={control}
+					error={errors}
 				/>
 				<InputText
 					label="Description"
@@ -91,6 +92,7 @@ export default function InformationPartyScreen({
 					value={party?.description ? party?.description : description}
 					setValue={setDescription}
 					control={control}
+					error={errors}
 				/>
 				<InputDate
 					label="Date"

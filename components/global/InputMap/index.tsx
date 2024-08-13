@@ -1,9 +1,8 @@
 import { ICoordinates } from "@/interfaces/coordinates.interface";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-import { IconButton, TextInput } from "@react-native-material/core";
 import { useEffect, useState } from "react";
 import { Controller } from "react-hook-form";
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, StyleSheet, Text, TextInput, View } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import MapViewer from "../MapViewer";
 import CustomModal from "../Modal";
@@ -31,26 +30,28 @@ export default function InputMap({
 				name={"location"}
 				rules={{ required: `Location is required` }}
 				render={({ field: { onChange, value } }) => (
-					<TextInput
-						variant={"outlined"}
-						label={"Search"}
-						placeholder={"Search"}
-						value={search}
-						onChangeText={(text) => {
-							setSearch(text);
-							onChange(text);
-						}}
-						trailing={(props) => (
-							<IconButton
-								icon={(props) => (
-									<Icon name={"google-maps"} {...props} />
-								)}
-								onPress={() => setVisible(true)}
-							/>
-						)}
-						style={{ marginTop: 16, marginLeft: 16, marginRight: 16 }}
-						editable={false}
-					/>
+					<View style={style.inputContainer}>
+						<TextInput
+							placeholder={"Select a place"}
+							placeholderTextColor={"#000"}
+							editable={false}
+							value={search}
+							onChangeText={(text) => {
+								setSearch(text);
+								onChange(text);
+							}}
+							autoCorrect={true}
+							autoCapitalize="none"
+							style={style.input}
+						/>
+						<Icon
+							name={"google-maps"}
+							size={20}
+							color="#000"
+							style={style.icon}
+							onPress={() => setVisible(true)}
+						/>
+					</View>
 				)}
 			/>
 			<CustomModal visible={visible} setVisible={setVisible}>
@@ -121,6 +122,26 @@ function ListViewEmtpy() {
 }
 
 const style = StyleSheet.create({
+	inputContainer: {
+		borderWidth: 1,
+		borderColor: "#000",
+		borderRadius: 5,
+
+		marginTop: 16,
+		marginLeft: 16,
+		marginRight: 16,
+		padding: 16,
+
+		flexDirection: 'row',
+		alignItems: 'center',			
+	},
+	icon: {
+		marginRight: 10,
+	},
+	input: {
+		flex: 1,
+		fontSize: 16,		
+	},
 	container: {
 		flex: 1,
 		backgroundColor: "#fff",

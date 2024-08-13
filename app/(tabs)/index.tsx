@@ -10,8 +10,21 @@ import { FlatList, StyleSheet, View } from "react-native";
 export default function HomeScreen() {
 	const [index, setIndex] = useState(0);
 	const { user } = useUserStore();
-	const { ownerParties, isLoading } = useGetAllOwnerParties();
-	const { invitedParties } = useGetAllInvitedParties(String(user?.id));
+	const { ownerParties, isLoading, refetch: ownerPartiesRefetch } = useGetAllOwnerParties();
+	const { invitedParties, refetch: invitedPartiesRefecth } = useGetAllInvitedParties(String(user?.id));
+	const [refreshing, setRefreshing] = useState(false);
+
+	const onOwnerPartiesRefresh = () => {
+	   setRefreshing(true);
+	   ownerPartiesRefetch();
+	   setRefreshing(false);
+	};
+
+	const onInvitedPartiesRefresh = () => {
+	   setRefreshing(true);
+	   invitedPartiesRefecth();
+	   setRefreshing(false);
+	};
 
 	return (
 		<View style={styles.container}>
@@ -42,6 +55,8 @@ export default function HomeScreen() {
 				<TabView value={index} onChange={setIndex} animationType="spring">
 					<TabView.Item style={{ width: "100%" }}>
 						<FlatList
+						    refreshing={refreshing}
+							onRefresh={onOwnerPartiesRefresh}
 							data={ownerParties}
 							renderItem={({ item }) => <PartyItemList party={item} />}
 							keyExtractor={(item) => String(item.id)}
@@ -49,6 +64,8 @@ export default function HomeScreen() {
 					</TabView.Item>
 					<TabView.Item style={{ width: "100%" }}>
 						<FlatList
+						    refreshing={refreshing}
+							onRefresh={onInvitedPartiesRefresh}
 							data={invitedParties}
 							renderItem={({ item }) => <PartyItemList party={item} />}
 							keyExtractor={(item) => String(item.id)}

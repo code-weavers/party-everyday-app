@@ -15,7 +15,7 @@ export default function PartyItemList({ party }: PartyItemListProps) {
 		<ListItem
 			style={styles.container}
 			onPress={() =>
-				navigation.navigate("PartyContentScreen", { id: party.id })
+				navigation.navigate("PartyContentScreen", { id: String(party.id) })
 			}
 		>
 			<Avatar
@@ -26,7 +26,7 @@ export default function PartyItemList({ party }: PartyItemListProps) {
 					{party.name}
 				</ListItem.Title>
 				<ListItem.Subtitle style={{ color: "black" }}>
-					{formatBRDate(party.date)}
+					{formatBRDate(String(party.date))}
 				</ListItem.Subtitle>
 			</ListItem.Content>
 			<ListItem.Chevron color="white" />
