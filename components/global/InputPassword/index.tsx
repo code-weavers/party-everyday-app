@@ -1,7 +1,7 @@
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-import { IconButton, TextInput } from "@react-native-material/core";
 import { useState } from "react";
 import { Controller } from "react-hook-form";
+import { StyleSheet, TextInput, View } from "react-native";
 
 interface InputPasswordProps {
 	label: string;
@@ -26,31 +26,64 @@ export default function InputPassword({
 			name={label}
 			rules={{ required: `${label} is required` }}
 			render={({ field: { onChange, value } }) => (
-				<TextInput
-					variant={"outlined"}
-					label={label}
-					placeholder={placeholder}
-					value={value}
-					onChangeText={(text) => {
-						setValue(text);
-						onChange(text);
-					}}
-					style={{ margin: 16 }}
-					secureTextEntry={secureTextEntry}
-					textContentType="password"
-					trailing={(props) => (
-						<IconButton
-							icon={(props) => (
-								<Icon
-									name={secureTextEntry ? "eye" : "eye-off"}
-									{...props}
-								/>
-							)}
-							onPress={() => setSecureTextEntry(!secureTextEntry)}
-						/>
-					)}
-				/>
+				<View style={styles.container}>
+					<Icon name={'lock-outline'} size={20} color="#000" style={styles.icon} />
+					<TextInput
+						placeholder={placeholder}
+						placeholderTextColor={"#000"}
+						value={value}
+						onChangeText={(text) => {
+							setValue(text);
+							onChange(text);
+						}}
+						autoCorrect={true}
+						autoCapitalize="none"
+						style={styles.input}
+						secureTextEntry={secureTextEntry}
+						textContentType="password"
+					/>
+					{
+						secureTextEntry ? (
+							<Icon
+								name="eye-off-outline"
+								size={20}
+								color="#000"
+								onPress={() => setSecureTextEntry(false)}
+							/>
+						) : (
+							<Icon
+								name="eye-outline"
+								size={20}
+								color="#000"
+								onPress={() => setSecureTextEntry(true)}
+							/>
+						)
+					}
+				</View>				
 			)}
 		/>
 	);
 }
+
+const styles = StyleSheet.create({
+	container: {
+		borderWidth: 1,
+		borderColor: "#000",
+		borderRadius: 5,
+
+		marginTop: 16,
+		marginLeft: 16,
+		marginRight: 16,
+		padding: 16,
+
+		flexDirection: 'row',
+		alignItems: 'center',			
+	},
+	icon: {
+		marginRight: 10,
+	},
+	input: {
+		flex: 1,
+		fontSize: 16,
+	},
+});
