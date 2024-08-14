@@ -23,7 +23,7 @@ export default function SigninScreen() {
 	} = useForm<FormData>({
 		defaultValues: { email, password },
 	});
-	const handleSignUp = () => {
+	const handleSignIn = () => {
 		login({ email, password });
 	};
 
@@ -39,6 +39,7 @@ export default function SigninScreen() {
 					value={email}
 					setValue={setEmail}
 					control={control}
+					error={errors.email}
 				/>
 				<InputPassword
 					label="Password"
@@ -46,6 +47,7 @@ export default function SigninScreen() {
 					value={password}
 					setValue={setPassword}
 					control={control}
+					error={errors.password}
 				/>
 			</View>
 
@@ -54,7 +56,7 @@ export default function SigninScreen() {
 					...styles.button,
 					backgroundColor: isDirty ? "black" : "gray",
 				}}
-				onPress={handleSubmit(handleSignUp)}
+				onPress={handleSubmit(handleSignIn)}
 			>
 				<Text style={{ color: "white" }}>Sign In</Text>
 			</Pressable>

@@ -48,7 +48,7 @@ export default function PartyContent({ party }: PartyContentProps) {
 					<FlatList
 						data={party.additionalInfo}
 						renderItem={({ item }) => (
-							<AdditionalInfoItem additionalInfo={item} />
+							<AdditionalInfoItem partyId={String(party.id)} additionalInfo={item} />
 						)}
 						keyExtractor={(item) => item.name}
 					/>

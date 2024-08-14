@@ -2,21 +2,23 @@ import CustomSubTitle from "@/components/global/CustomSubTitle";
 import CustomTitle from "@/components/global/CustomTitle";
 import InputEmail from "@/components/global/InputEmail";
 import InputPassword from "@/components/global/InputPassword";
-import InputText from "@/components/global/InputText";
+import InputPhoneNumber from "@/components/global/InputPhoneNumber";
+import InputUsername from "@/components/global/InputUsername";
 import { useSignup } from "@/hooks/user/useSignup";
 import { useForm } from "react-hook-form";
 import {
-	ActivityIndicator,
 	Pressable,
 	StyleSheet,
 	Text,
-	View,
+	View
 } from "react-native";
 
 type FormData = {
 	username: string;
 	email: string;
+	telephoneNumber: string;
 	password: string;
+	confirmPassword: string;
 };
 
 export default function SignupScreen() {
@@ -25,6 +27,8 @@ export default function SignupScreen() {
 		setUsername,
 		email,
 		setEmail,
+		telephoneNumber,
+		setTelephoneNumber,
 		password,
 		setPassword,
 		confirmPassword,
@@ -37,7 +41,7 @@ export default function SignupScreen() {
 		handleSubmit,
 		formState: { errors, isDirty, isSubmitting, isValid },
 	} = useForm<FormData>({
-		defaultValues: { username, email, password },
+		defaultValues: { username, email, telephoneNumber, password, confirmPassword },
 	});
 
 	return (
@@ -46,12 +50,14 @@ export default function SignupScreen() {
 			<CustomSubTitle subtitle="Welcome! Please sign up to continue." />
 
 			<View style={styles.form}>
-				<InputText
+				<InputUsername
+					icon={true}
 					label="Username"
 					placeholder="Username"
 					value={username}
 					setValue={setUsername}
 					control={control}
+					error={errors.username}
 				/>
 				<InputEmail
 					label="Email"
@@ -59,6 +65,15 @@ export default function SignupScreen() {
 					value={email}
 					setValue={setEmail}
 					control={control}
+					error={errors.email}
+				/>
+				<InputPhoneNumber
+					label="Telephone Number"
+					placeholder="Telephone Number"
+					value={telephoneNumber}
+					setValue={setTelephoneNumber}
+					control={control}
+					error={errors.telephoneNumber}
 				/>
 				<InputPassword
 					label="Password"
@@ -66,6 +81,7 @@ export default function SignupScreen() {
 					value={password}
 					setValue={setPassword}
 					control={control}
+					error={errors.password}
 				/>
 				<InputPassword
 					label="Confirm Password"
@@ -73,21 +89,18 @@ export default function SignupScreen() {
 					value={confirmPassword}
 					setValue={setConfirmPassword}
 					control={control}
+					error={errors.confirmPassword}
 				/>
 			</View>
 
 			<Pressable
 				style={{
 					...styles.button,
-					backgroundColor: isValid ? "black" : "gray",
+					backgroundColor: isDirty ? "black" : "gray",
 				}}
 				onPress={handleSubmit(handleSignUp)}
 			>
-				{isSubmitting ? (
-					<ActivityIndicator color="white" />
-				) : (
-					<Text style={{ color: "white" }}>Sign Up</Text>
-				)}
+				<Text style={{ color: "white" }}>Sign Up</Text>
 			</Pressable>
 		</View>
 	);

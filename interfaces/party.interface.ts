@@ -27,6 +27,11 @@ export interface ICreateParty {
    guests?: Guest[]
 }
 
+export interface ICreateAdditionalInfo {
+   name: string
+   value: number
+}
+
 interface Guest {
    id: string
 }

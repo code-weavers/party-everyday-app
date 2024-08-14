@@ -15,6 +15,7 @@ export const useSignup = () => {
    const [password, setPassword] = useState('');
    const [confirmPassword, setConfirmPassword] = useState('');
    const [email, setEmail] = useState('');
+   const [telephoneNumber, setTelephoneNumber] = useState('');
    //const [file, setFile] = useState<IImagePickerAsset>();
 
    const { mutate } = useMutation<IUserSignupResponse, AxiosError<ICustomError>>({
@@ -30,6 +31,7 @@ export const useSignup = () => {
 
          formData.append('username', username);
          formData.append('email', email);
+         formData.append('telephoneNumber', telephoneNumber);
          formData.append('password', password);
 
          const { data } = await api.post<IUserSignupResponse>('/users', formData, {
@@ -73,6 +75,8 @@ export const useSignup = () => {
       setUsername,
       email,
       setEmail,
+      telephoneNumber,
+      setTelephoneNumber,
       password,
       setPassword,
       confirmPassword,

@@ -42,8 +42,6 @@ export default function InformationPartyScreen({
 	});
 	const { party, setParty } = useCreatePartyStore();
 
-	console.log("DAte", date);
-
 	const handleNext = async () => {
 		const address = await getAddressByCoordinates({
 			lat: location.lat,
@@ -79,20 +77,14 @@ export default function InformationPartyScreen({
 
 			<View style={styles.form}>
 				<InputText
-					label="Name"
 					placeholder="Let's set an name for your party"
 					value={party?.name ? party?.name : name}
 					setValue={setName}
-					control={control}
-					error={errors}
 				/>
 				<InputText
-					label="Description"
 					placeholder="Let's set an description for your party"
 					value={party?.description ? party?.description : description}
 					setValue={setDescription}
-					control={control}
-					error={errors}
 				/>
 				<InputDate
 					label="Date"

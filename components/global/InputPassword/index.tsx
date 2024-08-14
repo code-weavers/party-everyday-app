@@ -1,7 +1,8 @@
+import { firstLetterUpperCase } from "@/utils";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { useState } from "react";
 import { Controller } from "react-hook-form";
-import { StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, Text, TextInput, View } from "react-native";
 
 interface InputPasswordProps {
 	label: string;
@@ -9,6 +10,7 @@ interface InputPasswordProps {
 	value: string;
 	setValue: (text: string) => void;
 	control?: any;
+	error?: any;
 }
 
 export default function InputPassword({
@@ -17,6 +19,7 @@ export default function InputPassword({
 	value,
 	setValue,
 	control,
+	error,
 }: InputPasswordProps) {
 	const [secureTextEntry, setSecureTextEntry] = useState(true);
 
@@ -59,7 +62,8 @@ export default function InputPassword({
 							/>
 						)
 					}
-				</View>				
+					{error?.password && <Text>{firstLetterUpperCase(label)} is required</Text>}
+				</View>
 			)}
 		/>
 	);
@@ -77,7 +81,7 @@ const styles = StyleSheet.create({
 		padding: 16,
 
 		flexDirection: 'row',
-		alignItems: 'center',			
+		alignItems: 'center',
 	},
 	icon: {
 		marginRight: 10,

@@ -10,7 +10,14 @@ export const useGetParty = (id: string) => {
       queryFn: async () => {
          const { data: party } = await api.get<IParty>(`/parties/${id}`)
 
-         party.additionalInfo?.push({ id: 'new', name: '', value: 0, createdAt: '' })
+         if (!party.additionalInfo) party.additionalInfo = []
+         if (!party.guests) party.guests = []
+
+         party.additionalInfo?.push({ id: 'new', name: '', value: 0, createdAt: new Date().toISOString() })
+         party.guests?.push({ id: 'new', user: { id: '', username: '', email: '' }, selected: false, status: '' })
+
+         // Sort additional info by createdAt
+         party.additionalInfo = party.additionalInfo.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
 
          return party
       },
