@@ -1,26 +1,27 @@
+import InputNumber from "@/components/global/InputNumber";
+import InputText from "@/components/global/InputText";
 import { useCreateAdditionalInfo } from "@/hooks/party/useCreateAdditionalInfo";
+import { useDeleteAdditionalInfo } from "@/hooks/party/useDeleteAdditionalInfo";
 import { IAdditionalInfo } from "@/interfaces/party.interface";
 import { formatBRCurrency } from "@/utils";
-import { TextInput } from "@react-native-material/core";
 import { Button, Icon, ListItem } from "@rneui/base";
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 
 interface PartyAdditionalInfoProps {
+   partyId: string;
    additionalInfo: IAdditionalInfo;
 }
 
 export default function AdditionalInfoItem({
+   partyId,
    additionalInfo,
 }: PartyAdditionalInfoProps) {
    const [isEditing, setIsEditing] = useState<boolean>(false);
    const { name, setName, value, setValue, handleSubmit } =
-      useCreateAdditionalInfo();
+      useCreateAdditionalInfo(partyId);
+   const { handleSubmit: handleDelete } = useDeleteAdditionalInfo(partyId);
    const isNew = additionalInfo.id === "new";
-
-   const handleDelete = (id: string) => {
-      console.log("Delete", id);
-   };
 
    return (
       <ListItem style={styles.container}>
@@ -41,9 +42,11 @@ export default function AdditionalInfoItem({
          </ListItem.Content>
          <View style={styles.actionButtonContainer}>
             {isNew ? (
-               <Button radius={"sm"} type="solid" color={"success"}>
-                  <Icon name="add" color="white" onPress={handleSubmit} />
-               </Button>
+               <View style={styles.editContainerButton}>
+                  <Button radius={"sm"} type="solid" color={"success"}>
+                     <Icon name="add" color="white" onPress={handleSubmit} />
+                  </Button>
+               </View>
             ) : (
                <ActionButton
                   handleEdit={() => setIsEditing(!isEditing)}
@@ -88,22 +91,22 @@ function EditingContent({
 }: EditingContentProps) {
    return (
       <View style={styles.editContainer}>
-         <TextInput
-            variant={"outlined"}
-            label={"Name"}
-            placeholder={"Name"}
-            value={name}
-            onChangeText={(text) => setName(text)}
-            style={styles.inputName}
-         />
-         <TextInput
-            variant={"outlined"}
-            label={"Value"}
-            placeholder="Value"
-            value={value}
-            onChangeText={(text) => setValue(text)}
-            style={styles.inputValue}
-         />
+         <View style={styles.inputNameContainer}>
+            <InputText
+               placeholder="Name"
+               value={name}
+               setValue={setName}
+               styleProps={styles.inputName}
+            />
+         </View>
+
+         <View style={styles.inputValueContainer}>
+            <InputNumber
+               placeholder="R$ 0,00"
+               value={value}
+               setValue={setValue}
+            />
+         </View>
       </View>
    );
 }
@@ -154,7 +157,7 @@ const styles = StyleSheet.create({
       backgroundColor: "white",
       marginVertical: 5,
       borderRadius: 5,
-      padding: 10,
+      padding: 5,
       maxWidth: "95%",
       flexDirection: "row",
       alignItems: "center",
@@ -180,12 +183,19 @@ const styles = StyleSheet.create({
       flexDirection: "row",
       justifyContent: "space-between",
       alignItems: "center",
-      width: 300,
+      width: 310,
+   },
+   editContainerButton: {
+      justifyContent: "center",
+      alignItems: "center",
+   },
+   inputNameContainer: {
+      width: 180,
    },
    inputName: {
-      width: 170,
+      paddingLeft: 10,
    },
-   inputValue: {
+   inputValueContainer: {
       width: 120,
    },
 });

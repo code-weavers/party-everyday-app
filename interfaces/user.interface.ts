@@ -6,7 +6,7 @@ export interface IUser {
    username: string;
    email: string;
    phoneNumber?: string;
-   file: IFile;
+   file?: IFile;
    bankInfo?: IBankInfo
 }
 
@@ -27,6 +27,7 @@ export interface IUserSignupResponse {
    id: string;
    email: string;
    username: string;
+   telephoneNumber: string;
    file: IFile;
    password: string;
    accessToken: string;

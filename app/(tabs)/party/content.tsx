@@ -41,7 +41,7 @@ export default function PartyContentScreen({ route }: any) {
 					</>
 				)}
 			</View>
-		</SafeContainer>		
+		</SafeContainer>
 	);
 }
 
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
 		borderRadius: 5,
 		elevation: 2,
 		width: "90%",
-		bottom: 110,
+		bottom: 80,
 		alignItems: "center",
 	},
 });
