@@ -13,11 +13,7 @@ export const useGetParty = (id: string) => {
          if (!party.additionalInfo) party.additionalInfo = []
          if (!party.guests) party.guests = []
 
-         party.additionalInfo?.push({ id: 'new', name: '', value: 0, createdAt: new Date().toISOString() })
-         party.guests?.push({ id: 'new', user: { id: '', username: '', email: '' }, selected: false, status: '' })
-
-         // Sort additional info by createdAt
-         party.additionalInfo = party.additionalInfo.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+         party.additionalInfo?.unshift({ id: 'new', name: '', value: 0, createdAt: '' })
 
          return party
       },

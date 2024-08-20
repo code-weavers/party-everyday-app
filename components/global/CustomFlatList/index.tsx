@@ -3,8 +3,8 @@ import { FlatList, StyleSheet, View } from "react-native";
 interface CustomFlatListProps {
 	items: any[];
 	children: (item: any) => JSX.Element;
-	refreshing: boolean;
-	onRefresh: () => void;
+	refreshing?: boolean;
+	onRefresh?: () => void;
 }
 
 export default function CustomFlatList({

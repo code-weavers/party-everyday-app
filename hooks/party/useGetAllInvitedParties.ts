@@ -8,7 +8,7 @@ export const useGetAllInvitedParties = (userId: string) => {
    const { data, isLoading, refetch } = useQuery<IParty[], AxiosError<ICustomError>>({
       queryKey: ["invitedParties" + userId],
       queryFn: async () => {
-         const { data: parties } = await api.get<IParty[]>(`/parties/guest/${userId}`)
+         const { data: parties } = await api.get<IParty[]>(`/parties/invited/${userId}`)
 
          return parties
       },

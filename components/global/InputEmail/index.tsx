@@ -37,8 +37,8 @@ export default function InputEmail({
 							placeholderTextColor={"#000"}
 							value={value}
 							onChangeText={(text) => {
-								setValue(text);
-								onChange(text);
+								setValue(text.trim());
+								onChange(text.trim());
 							}}
 							textContentType="emailAddress"
 							autoCorrect={true}

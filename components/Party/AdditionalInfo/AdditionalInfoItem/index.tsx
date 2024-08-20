@@ -1,11 +1,10 @@
+import Input from "@/components/global/Input";
 import InputNumber from "@/components/global/InputNumber";
-import InputText from "@/components/global/InputText";
 import { useCreateAdditionalInfo } from "@/hooks/party/useCreateAdditionalInfo";
 import { useDeleteAdditionalInfo } from "@/hooks/party/useDeleteAdditionalInfo";
 import { IAdditionalInfo } from "@/interfaces/party.interface";
 import { formatBRCurrency } from "@/utils";
 import { Button, Icon, ListItem } from "@rneui/base";
-import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 
 interface PartyAdditionalInfoProps {
@@ -17,7 +16,6 @@ export default function AdditionalInfoItem({
    partyId,
    additionalInfo,
 }: PartyAdditionalInfoProps) {
-   const [isEditing, setIsEditing] = useState<boolean>(false);
    const { name, setName, value, setValue, handleSubmit } =
       useCreateAdditionalInfo(partyId);
    const { handleSubmit: handleDelete } = useDeleteAdditionalInfo(partyId);
@@ -48,10 +46,9 @@ export default function AdditionalInfoItem({
                   </Button>
                </View>
             ) : (
-               <ActionButton
-                  handleEdit={() => setIsEditing(!isEditing)}
-                  handleDelete={() => handleDelete(additionalInfo.id)}
-               />
+               <Button radius={"sm"} type="solid" color={"error"} onPress={() => handleDelete}>
+                  <Icon name="delete" color="white" />
+               </Button>
             )}
          </View>
       </ListItem>
@@ -92,7 +89,7 @@ function EditingContent({
    return (
       <View style={styles.editContainer}>
          <View style={styles.inputNameContainer}>
-            <InputText
+            <Input
                placeholder="Name"
                value={name}
                setValue={setName}
@@ -108,47 +105,6 @@ function EditingContent({
             />
          </View>
       </View>
-   );
-}
-
-interface ActionButtonProps {
-   handleEdit: () => void;
-   handleDelete: () => void;
-}
-
-function ActionButton({ handleEdit, handleDelete }: ActionButtonProps) {
-   return (
-      <>
-         {/*
-               <Button radius={"sm"} type="solid" color={"primary"}>
-            <Icon name="edit" color="white" onPress={handleEdit} />
-         </Button>
-       */}
-         <Button radius={"sm"} type="solid" color={"error"}>
-            <Icon name="delete" color="white" onPress={handleDelete} />
-         </Button>
-      </>
-   );
-}
-
-interface EditingActionButtonProps {
-   handleSave: () => void;
-   handleCancel: () => void;
-}
-
-function EditingActionButton({
-   handleSave,
-   handleCancel,
-}: EditingActionButtonProps) {
-   return (
-      <>
-         <Button radius={"sm"} type="solid" color={"success"}>
-            <Icon name="save" color="white" onPress={handleSave} />
-         </Button>
-         <Button radius={"sm"} type="solid" color={"error"}>
-            <Icon name="close" color="white" onPress={handleCancel} />
-         </Button>
-      </>
    );
 }
 

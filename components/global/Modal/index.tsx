@@ -5,14 +5,17 @@ interface CustomModalProps {
    visible: boolean;
    setVisible: (visible: boolean) => void;
    children: ReactNode;
+   onSubmit?: () => void;
 }
 
 export default function CustomModal({
    visible,
    setVisible,
    children,
+   onSubmit,
 }: CustomModalProps) {
    const handleSubmit = () => {
+      if (onSubmit) onSubmit();
       setVisible(false);
    };
 
@@ -33,14 +36,14 @@ export default function CustomModal({
 
                   <View style={styles.footer}>
                      <Pressable
-                        style={[styles.button, styles.buttonClose]}
+                        style={[styles.button]}
                         onPress={() => setVisible(!visible)}
                      >
                         <Text style={styles.textStyle}>Cancel</Text>
                      </Pressable>
 
                      <Pressable
-                        style={[styles.button, styles.buttonClose]}
+                        style={[styles.button]}
                         onPress={handleSubmit}
                      >
                         <Text style={styles.textStyle}>Submit</Text>
@@ -64,7 +67,7 @@ const styles = StyleSheet.create({
       backgroundColor: "white",
       width: "100%",
       height: "100%",
-      padding: 35,
+      padding: 16,
       alignItems: "center",
       shadowColor: "#000",
       shadowOffset: {
@@ -93,8 +96,10 @@ const styles = StyleSheet.create({
    footer: {
       flexDirection: "row",
       justifyContent: "space-between",
-      width: "107%",
+      width: "100%",
       bottom: 100,
       marginTop: 16,
+      marginLeft: 8,
+      marginRight: 8,
    },
 });

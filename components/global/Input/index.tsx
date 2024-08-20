@@ -7,7 +7,7 @@ interface InputTextProps {
 	styleProps?: StyleProp<TextStyle>;
 }
 
-export default function InputText({
+export default function Input({
 	placeholder,
 	value,
 	setValue,
@@ -33,12 +33,7 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		borderColor: "#000",
 		borderRadius: 5,
-
-		marginTop: 16,
-		marginLeft: 16,
-		marginRight: 16,
 		padding: 16,
-
 		flexDirection: 'row',
 		alignItems: 'center',
 	},
