@@ -8,12 +8,17 @@ interface SafeContainerProps {
 export default function SafeContainer({
 	children,
 }: SafeContainerProps): ReactNode {
-	return <SafeAreaView style={styles.container}>{children}</SafeAreaView>;
+	return (
+		<SafeAreaView style={styles.container}>
+			{children}
+		</SafeAreaView>
+	);
 }
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		borderStartColor: 'blue',
 		paddingTop: 0,
 	},
 	scrollView: {

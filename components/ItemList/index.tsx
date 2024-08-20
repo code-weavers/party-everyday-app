@@ -1,7 +1,7 @@
 import { IGuest } from "@/interfaces/guest.interface";
+import { Avatar, CheckBox, ListItem } from '@rneui/base';
 import { useState } from "react";
 import { StyleSheet, Text } from "react-native";
-import { Avatar, CheckBox, ListItem } from "react-native-elements";
 
 interface ItemListProps {
 	guest: IGuest;
@@ -26,7 +26,7 @@ export default function ItemList({ guest }: ItemListProps) {
 			</ListItem.Content>
 			<CheckBox
 				center
-				checked={guest.selected}
+				checked={Boolean(guest.selected)}
 				onPress={() => {
 					setSelected(!selected);
 					guest.selected = !guest.selected;

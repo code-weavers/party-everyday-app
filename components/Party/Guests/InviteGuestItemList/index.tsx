@@ -1,15 +1,20 @@
 import { IGuest } from "@/interfaces/guest.interface";
-import { Avatar, ListItem } from "@rneui/base";
-import { StyleSheet, Text } from "react-native";
+import { Avatar, CheckBox, ListItem } from "@rneui/base";
+import { useState } from "react";
+import { StyleSheet } from "react-native";
 
 interface IGuestItemListProps {
    guest: IGuest;
+   onSelect: () => void;
 }
 
-export default function GuestItemList({ guest }: IGuestItemListProps) {
+export default function InviteGuestItemList({ guest, onSelect }: IGuestItemListProps) {
+   const [selected, setSelected] = useState<boolean>(false);
+
    return (
       <ListItem style={styles.container}>
          <Avatar
+            rounded
             source={{ uri: "https://randomuser.me/api/portraits/men/33.jpg" }}
          />
          <ListItem.Content>
@@ -19,33 +24,21 @@ export default function GuestItemList({ guest }: IGuestItemListProps) {
             <ListItem.Subtitle
                style={{ color: "black", fontWeight: "condensed" }}
             >
-               {formatStatus(String(guest.status))}
+               Online
             </ListItem.Subtitle>
          </ListItem.Content>
+
+         <CheckBox
+            center
+            checked={Boolean(guest.selected)}
+            onPress={() => {
+               setSelected(!selected);
+               onSelect()
+               guest.selected = !guest.selected;
+            }}
+         />
       </ListItem>
    );
-}
-
-function formatStatus(status: string) {
-   let color;
-   switch (status) {
-      case "PENDING":
-         status = "Pending";
-         color = "orange";
-         break;
-      case "ACCEPTED":
-         status = "Accepted";
-         color = "green";
-         break;
-      case "DECLINED":
-         status = "Declined";
-         color = "red";
-         break;
-      default:
-         color = "black";
-   }
-
-   return <Text style={{ color: color }}>{status}</Text>;
 }
 
 const styles = StyleSheet.create({
@@ -53,8 +46,8 @@ const styles = StyleSheet.create({
       backgroundColor: "white",
       marginVertical: 5,
       borderRadius: 5,
-      padding: 10,
-      maxWidth: "95%",
+      padding: 5,
+      maxWidth: "98%",
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "space-between",

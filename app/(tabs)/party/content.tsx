@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
 		borderRadius: 5,
 		elevation: 2,
 		width: "90%",
-		bottom: 80,
+		bottom: 60,
 		alignItems: "center",
 	},
 });

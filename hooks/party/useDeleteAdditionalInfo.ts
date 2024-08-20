@@ -16,7 +16,6 @@ export const useDeleteAdditionalInfo = (partyId: string) => {
          return data;
       },
       onSuccess: (data) => {
-         queryClient.refetchQueries({ queryKey: ['parties'] });
          queryClient.refetchQueries({ queryKey: ["party" + partyId] });
 
          showToast({

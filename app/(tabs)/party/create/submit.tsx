@@ -12,8 +12,7 @@ export default function PartySubmitScreen() {
 
    useEffect(() => {
       setTimeout(() => {
-         // redirect to home
-         navigation.navigate("Home");
+         navigation.navigate("HomeScreen");
       }, 2000);
    }, []);
 
