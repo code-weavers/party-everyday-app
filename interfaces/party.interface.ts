@@ -13,10 +13,10 @@ export interface IParty {
 }
 
 export interface IAdditionalInfo {
-   id: string;
+   id?: string;
    name: string;
    value: number;
-   createdAt: string;
+   createdAt?: string;
 }
 
 export interface ICreateParty {
@@ -28,6 +28,7 @@ export interface ICreateParty {
 }
 
 export interface ICreateAdditionalInfo {
+   id?: string
    name: string
    value: number
 }

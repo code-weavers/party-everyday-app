@@ -4,6 +4,7 @@ import { Tab, TabView } from "@rneui/themed";
 import { useState } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import AdditionalInfoItem from "../AdditionalInfo/AdditionalInfoItem";
+import CreateAdditionalInfo from "../AdditionalInfo/CreateAdditionalInfo";
 import GuestItemList from "../Guests/GuestItemList";
 import InviteGuest from "../Guests/InviteGuest";
 
@@ -48,14 +49,17 @@ export default function PartyContent({ party }: PartyContentProps) {
 
 			<TabView value={index} onChange={setIndex} animationType="spring">
 				<TabView.Item style={{ width: "100%" }}>
-					<FlatList
-						data={party.additionalInfo}
-						renderItem={({ item }) => (
-							<AdditionalInfoItem partyId={String(party.id)} additionalInfo={item} />
-						)}
-						keyExtractor={(item) => item.name}
-						style={styles.flatlist}
-					/>
+					<View>
+						<CreateAdditionalInfo partyId={String(party.id)} />
+						<FlatList
+							data={party.additionalInfo}
+							renderItem={({ item }) => (
+								<AdditionalInfoItem partyId={String(party.id)} additionalInfo={item} />
+							)}
+							keyExtractor={(item) => item.name}
+							style={styles.flatlist}
+						/>
+					</View>
 				</TabView.Item>
 				<TabView.Item style={{ width: "100%" }}>
 					<View>
