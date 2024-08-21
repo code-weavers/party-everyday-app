@@ -7,19 +7,15 @@ import { useState } from "react";
 import { useToast } from "../useToast";
 
 export const useCreateAdditionalInfo = (partyId: string) => {
-   const [name, setName] = useState<string>("");
-   const [value, setValue] = useState<string>("");
    const { showToast } = useToast();
    const queryClient = useQueryClient();
-
-   const additionalInfoContent: ICreateAdditionalInfo = {
-      name: name,
-      value: Number(value),
-   };
+   const [additionalInfos, setAdditionalInfos] = useState<ICreateAdditionalInfo[]>([{ id: 'new', name: "", value: 0 }]);
 
    const { mutate } = useMutation<IAdditionalInfo, AxiosError<ICustomError>>({
       mutationFn: async () => {
-         const { data } = await api.post<IAdditionalInfo>(`/parties/${partyId}/additionalInfo`, additionalInfoContent);
+         const filteredInfos = additionalInfos.filter((info) => info.id !== 'new');
+
+         const { data } = await api.post<IAdditionalInfo>(`/parties/${partyId}/additionalInfo`, { additionalInfo: filteredInfos });
 
          return data;
       },
@@ -31,8 +27,7 @@ export const useCreateAdditionalInfo = (partyId: string) => {
             type: "success",
          });
 
-         setName("");
-         setValue("");
+         setAdditionalInfos([{ name: "", value: 0 }]);
       },
       onError: (error) => {
          showToast({
@@ -43,22 +38,24 @@ export const useCreateAdditionalInfo = (partyId: string) => {
    });
 
    const handleSubmit = () => {
-      if (!name || !value) {
-         showToast({
-            type: 'error',
-            message: 'Please fill all fields',
-         });
-         return;
+      const filteredInfos = additionalInfos.filter((info) => info.id !== 'new');
+
+      for (const info of filteredInfos) {
+         if (!info.name || !info.value) {
+            showToast({
+               type: 'error',
+               message: 'Please fill all fields',
+            });
+            return;
+         }
       }
 
       mutate();
    }
 
    return {
-      name,
-      setName,
-      value,
-      setValue,
+      additionalInfos,
+      setAdditionalInfos,
       handleSubmit,
    };
 }

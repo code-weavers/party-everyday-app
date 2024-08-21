@@ -13,8 +13,6 @@ export const useGetParty = (id: string) => {
          if (!party.additionalInfo) party.additionalInfo = []
          if (!party.guests) party.guests = []
 
-         party.additionalInfo?.unshift({ id: 'new', name: '', value: 0, createdAt: '' })
-
          return party
       },
       retry: 1,

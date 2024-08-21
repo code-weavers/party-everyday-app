@@ -5,12 +5,12 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useToast } from "../useToast";
 
-export const useDeleteAdditionalInfo = (partyId: string) => {
+export const useDeleteAdditionalInfo = (partyId: string, additionalInfoId: string) => {
    const { showToast } = useToast();
    const queryClient = useQueryClient();
 
-   const { mutate } = useMutation<IAdditionalInfo, AxiosError<ICustomError>, string>({
-      mutationFn: async (additionalInfoId: string) => {
+   const { mutate } = useMutation<IAdditionalInfo, AxiosError<ICustomError>>({
+      mutationFn: async () => {
          const { data } = await api.delete<IAdditionalInfo>(`/parties/additionalInfo/${additionalInfoId}`);
 
          return data;
@@ -31,7 +31,9 @@ export const useDeleteAdditionalInfo = (partyId: string) => {
       },
    });
 
-   const handleSubmit = (additionalInfoId: string) => mutate(additionalInfoId);
+   const handleDelete = () => {
+      mutate();
+   }
 
-   return { handleSubmit };
+   return { handleDelete };
 }

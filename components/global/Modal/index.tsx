@@ -6,6 +6,7 @@ interface CustomModalProps {
    setVisible: (visible: boolean) => void;
    children: ReactNode;
    onSubmit?: () => void;
+   onCancel?: () => void;
 }
 
 export default function CustomModal({
@@ -13,11 +14,17 @@ export default function CustomModal({
    setVisible,
    children,
    onSubmit,
+   onCancel,
 }: CustomModalProps) {
    const handleSubmit = () => {
       if (onSubmit) onSubmit();
       setVisible(false);
    };
+
+   const handleCancel = () => {
+      if (onCancel) onCancel();
+      setVisible(false);
+   }
 
    return (
       <>
@@ -37,7 +44,7 @@ export default function CustomModal({
                   <View style={styles.footer}>
                      <Pressable
                         style={[styles.button]}
-                        onPress={() => setVisible(!visible)}
+                        onPress={handleCancel}
                      >
                         <Text style={styles.textStyle}>Cancel</Text>
                      </Pressable>
