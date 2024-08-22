@@ -7,11 +7,13 @@ import { StyleSheet, View } from "react-native";
 interface PartyAdditionalInfoProps {
    partyId: string;
    additionalInfo: IAdditionalInfo
+   canDelete?: boolean;
 }
 
 export default function AdditionalInfoItem({
    partyId,
    additionalInfo,
+   canDelete = false,
 }: PartyAdditionalInfoProps) {
    const { handleDelete } = useDeleteAdditionalInfo(partyId, String(additionalInfo.id));
 
@@ -23,11 +25,13 @@ export default function AdditionalInfoItem({
                value={formatBRCurrency(additionalInfo.value)}
             />
          </ListItem.Content>
-         <View style={styles.actionButtonContainer}>
-            <Button radius={"sm"} type="solid" color={"error"} onPress={handleDelete}>
-               <Icon name="delete" color="white" />
-            </Button>
-         </View>
+         {canDelete && (
+            <View style={styles.actionButtonContainer}>
+               <Button radius={"sm"} type="solid" color={"error"} onPress={handleDelete}>
+                  <Icon name="delete" color="white" />
+               </Button>
+            </View>
+         )}
       </ListItem>
    );
 }

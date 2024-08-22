@@ -24,7 +24,6 @@ export function formatToTimestamp(date: string): string {
    const momentDate = moment(date, 'YYYY/MM/DD HH:mm');
 
    if (!momentDate.isValid()) {
-      console.error(`Invalid date: ${date}`);
       return '';  // or throw new Error(`Invalid date: ${date}`);
    }
 

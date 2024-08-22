@@ -8,3 +8,11 @@ export interface ICoordinates {
    lat: string;
    lng: string;
 }
+
+export interface IMarker {
+   partyId?: string;
+   title: string;
+   description: string;
+   latitude: number;
+   longitude: number;
+}

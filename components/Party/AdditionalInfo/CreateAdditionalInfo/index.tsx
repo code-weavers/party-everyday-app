@@ -42,7 +42,7 @@ export default function CreateAdditionalInfo({ partyId }: IGuestItemListProps) {
                         <CreateAdditionalInfoItem
                            additionalInfo={item}
                            setAdditionalInfo={(additionalInfo: IAdditionalInfo) => setAdditionalInfos([...additionalInfos, additionalInfo])}
-                           handleDelete={() => handleDelete(String(item.id) + index)}
+                           handleDelete={() => handleDelete(String(item.id))}
                         />
                      )}
                   />

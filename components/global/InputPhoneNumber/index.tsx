@@ -21,7 +21,6 @@ export default function InputPhoneNumber({
    control,
    error,
 }: InputPhoneNumberProps) {
-   const [telephoneNumber, setTelephoneNumber] = useState("");
    const countryName: ICountryName = {
       en: 'United States',
       ru: 'Russian Federation',
@@ -59,8 +58,12 @@ export default function InputPhoneNumber({
                   <PhoneInput
                      value={value}
                      onChangePhoneNumber={(text) => {
-                        setValue(text);
                         onChange(text);
+
+                        const formattedPhoneNumber = text.replace(/ /g, '');
+                        const countryCode = selectedCountry.callingCode;
+
+                        setValue(`${countryCode}${formattedPhoneNumber}`);
                      }}
                      selectedCountry={selectedCountry}
                      onChangeSelectedCountry={setSelectedCountry}

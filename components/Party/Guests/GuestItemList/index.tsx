@@ -8,9 +8,10 @@ import { StyleSheet, Text, View } from "react-native";
 interface IGuestItemListProps {
    partyId: string;
    guest: IGuest;
+   canDelete?: boolean;
 }
 
-export default function GuestItemList({ partyId, guest }: IGuestItemListProps) {
+export default function GuestItemList({ partyId, guest, canDelete }: IGuestItemListProps) {
    const { handleSubmit } = useRemoveGuest(partyId, String(guest.id));
 
    return (
@@ -29,11 +30,13 @@ export default function GuestItemList({ partyId, guest }: IGuestItemListProps) {
             </ListItem.Subtitle>
          </ListItem.Content>
 
-         <View style={styles.actionButtonContainer}>
-            <Button radius={"sm"} type="solid" color={"error"} onPress={handleSubmit}>
-               <MaterialCommunityIcons name={"exit-run"} color={'white'} size={22} />
-            </Button>
-         </View>
+         {canDelete && (
+            <View style={styles.actionButtonContainer}>
+               <Button radius={"sm"} type="solid" color={"error"} onPress={handleSubmit}>
+                  <MaterialCommunityIcons name={"exit-run"} color={'white'} size={22} />
+               </Button>
+            </View>
+         )}
       </ListItem>
    );
 }

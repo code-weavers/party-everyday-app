@@ -27,7 +27,7 @@ export const useCreateAdditionalInfo = (partyId: string) => {
             type: "success",
          });
 
-         setAdditionalInfos([{ name: "", value: 0 }]);
+         setAdditionalInfos([{ id: 'new', name: "", value: 0 }]);
       },
       onError: (error) => {
          showToast({
@@ -48,6 +48,10 @@ export const useCreateAdditionalInfo = (partyId: string) => {
             });
             return;
          }
+
+         info.value = Number(info.value.toString().replace(/,/g, ''));
+
+         delete info.id;
       }
 
       mutate();

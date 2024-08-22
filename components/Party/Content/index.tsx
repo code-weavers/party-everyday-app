@@ -1,4 +1,5 @@
 import { useGetAllUsers } from "@/hooks/user/useGetAllUsers";
+import { useUserStore } from "@/hooks/useUserStore";
 import { IParty } from "@/interfaces/party.interface";
 import { Tab, TabView } from "@rneui/themed";
 import { useState } from "react";
@@ -13,8 +14,10 @@ interface PartyContentProps {
 }
 
 export default function PartyContent({ party }: PartyContentProps) {
+	const { user } = useUserStore();
 	const [index, setIndex] = useState(0);
 	const { users } = useGetAllUsers();
+	const isOwner = party.ownerId === user?.id;
 
 	return (
 		<>
@@ -50,11 +53,11 @@ export default function PartyContent({ party }: PartyContentProps) {
 			<TabView value={index} onChange={setIndex} animationType="spring">
 				<TabView.Item style={{ width: "100%" }}>
 					<View>
-						<CreateAdditionalInfo partyId={String(party.id)} />
+						{isOwner && <CreateAdditionalInfo partyId={String(party.id)} />}
 						<FlatList
 							data={party.additionalInfo}
 							renderItem={({ item }) => (
-								<AdditionalInfoItem partyId={String(party.id)} additionalInfo={item} />
+								<AdditionalInfoItem partyId={String(party.id)} additionalInfo={item} canDelete={isOwner} />
 							)}
 							keyExtractor={(item) => item.name}
 							style={styles.flatlist}
@@ -63,10 +66,10 @@ export default function PartyContent({ party }: PartyContentProps) {
 				</TabView.Item>
 				<TabView.Item style={{ width: "100%" }}>
 					<View>
-						<InviteGuest partyId={String(party.id)} users={users} invitedGuests={party.guests} />
+						{isOwner && <InviteGuest partyId={String(party.id)} users={users} invitedGuests={party.guests} />}
 						<FlatList
 							data={party.guests}
-							renderItem={({ item }) => <GuestItemList partyId={String(party.id)} guest={item} />}
+							renderItem={({ item }) => <GuestItemList partyId={String(party.id)} guest={item} canDelete={isOwner} />}
 							keyExtractor={(item) => item.user.id}
 							style={styles.flatlist}
 						/>
