@@ -1,8 +1,9 @@
-import PartyItemList from "@/components/Party/ItemList";
 import CustomTitle from "@/components/global/CustomTitle";
+import FindParties from "@/components/Party/FindParties";
 import { useGetAllParties } from "@/hooks/party/useGetAllParties";
+import { IParty } from "@/interfaces/party.interface";
 import { useNavigation } from "@react-navigation/native";
-import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function PartyScreen() {
 	const navigation = useNavigation();
@@ -10,14 +11,10 @@ export default function PartyScreen() {
 
 	return (
 		<View style={styles.container}>
-			<CustomTitle title={"Party Screen"} />
+			<CustomTitle title={"Find or Create parties"} />
 
-			<View style={styles.flatList}>
-				<FlatList
-					data={parties}
-					renderItem={({ item }) => <PartyItemList party={item} />}
-					keyExtractor={(item) => String(item.id)}
-				/>
+			<View>
+				<FindParties parties={parties as IParty[]} />
 			</View>
 
 			<Pressable
@@ -36,20 +33,22 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		alignItems: "center",
-		backgroundColor: "#fff",
+		backgroundColor: "white",
 	},
-	flatList: {
+	buttonContainer: {
 		flex: 1,
-		maxHeight: "65%",
-		width: "100%",
-		top: 10,
+		justifyContent: "center",
+		alignItems: "center",
+		backgroundColor: "blue",
 	},
 	button: {
 		backgroundColor: "black",
 		padding: 16,
-		top: 50,
 		borderRadius: 5,
 		elevation: 2,
 		width: "90%",
+
+		position: "absolute",
+		bottom: 120,
 	},
 });

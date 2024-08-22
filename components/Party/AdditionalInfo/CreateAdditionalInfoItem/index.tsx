@@ -18,13 +18,17 @@ export default function CreateAdditionalInfoItem({
    handleDelete,
 }: PartyAdditionalInfoProps) {
    const [name, setName] = useState("");
-   const [value, setValue] = useState("");
+   const [value, setValue] = useState(0);
    const isNew = additionalInfo.id === "new";
 
+   const removeComma = (value: number) => {
+      return Number(value.toString().replace(/,/g, ''));
+   }
+
    const handleAdd = () => {
-      setAdditionalInfo({ name, value: Number(value) });
+      setAdditionalInfo({ id: '', name, value: Number(removeComma(value)) });
       setName("");
-      setValue("");
+      setValue(0);
    }
 
    return (
@@ -52,7 +56,7 @@ export default function CreateAdditionalInfoItem({
                   </Button>
                </View>
             ) : (
-               <Button radius={"sm"} type="solid" color={"error"} onPress={() => handleDelete}>
+               <Button radius={"sm"} type="solid" color={"error"} onPress={handleDelete}>
                   <Icon name="delete" color="white" />
                </Button>
             )}

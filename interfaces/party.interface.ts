@@ -4,10 +4,10 @@ import { IGuest } from "./guest.interface";
 export interface IParty {
    id?: string;
    ownerId?: string;
-   name?: string;
+   name: string;
    date?: string;
-   description?: string;
-   address?: IAddress;
+   description: string;
+   address: IAddress;
    guests?: IGuest[];
    additionalInfo?: IAdditionalInfo[];
 }
