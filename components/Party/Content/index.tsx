@@ -1,3 +1,4 @@
+import { AdditionalInfoType } from "@/enums";
 import { useGetAllUsers } from "@/hooks/user/useGetAllUsers";
 import { useUserStore } from "@/hooks/useUserStore";
 import { IParty } from "@/interfaces/party.interface";
@@ -53,7 +54,19 @@ export default function PartyContent({ party }: PartyContentProps) {
 			<TabView value={index} onChange={setIndex} animationType="spring">
 				<TabView.Item style={{ width: "100%" }}>
 					<View>
-						{isOwner && <CreateAdditionalInfo partyId={String(party.id)} />}
+						<View style={styles.buttonContainer}>
+							{isOwner &&
+								<CreateAdditionalInfo
+									label={'Add Cost'}
+									partyId={String(party.id)}
+									type={AdditionalInfoType.COST} />
+							}
+							<CreateAdditionalInfo
+								label={'Add Payment'}
+								partyId={String(party.id)}
+								type={AdditionalInfoType.PAYMENT}
+							/>
+						</View>
 						<FlatList
 							data={party.additionalInfo}
 							renderItem={({ item }) => (
@@ -83,5 +96,26 @@ export default function PartyContent({ party }: PartyContentProps) {
 const styles = StyleSheet.create({
 	flatlist: {
 		height: "65%",
-	}
+	},
+	buttonContainer: {
+		backgroundColor: "white",
+		marginVertical: 5,
+		borderBottomLeftRadius: 5,
+		borderBottomRightRadius: 5,
+		padding: 10,
+		width: "100%",
+		flexDirection: "row",
+		alignItems: "center",
+		justifyContent: "space-between",
+		alignSelf: "center",
+
+		shadowColor: "#000",
+		shadowOffset: {
+			width: 0,
+			height: 2,
+		},
+		shadowOpacity: 0.25,
+		shadowRadius: 3.84,
+		elevation: 5,
+	},
 });

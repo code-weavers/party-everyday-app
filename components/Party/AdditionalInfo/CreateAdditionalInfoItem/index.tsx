@@ -1,5 +1,7 @@
 import Input from "@/components/global/Input";
 import InputNumber from "@/components/global/InputNumber";
+import { AdditionalInfoType } from "@/enums";
+import { useUserStore } from "@/hooks/useUserStore";
 import { IAdditionalInfo } from "@/interfaces/party.interface";
 import { formatBRCurrency } from "@/utils";
 import { Button, Icon, ListItem } from "@rneui/base";
@@ -10,15 +12,18 @@ interface PartyAdditionalInfoProps {
    additionalInfo: IAdditionalInfo;
    setAdditionalInfo: (additionalInfo: IAdditionalInfo) => void;
    handleDelete: () => void;
+   additionalInfoType: AdditionalInfoType;
 }
 
 export default function CreateAdditionalInfoItem({
    additionalInfo,
    setAdditionalInfo,
    handleDelete,
+   additionalInfoType,
 }: PartyAdditionalInfoProps) {
    const [name, setName] = useState("");
    const [value, setValue] = useState(0);
+   const { user } = useUserStore()
    const isNew = additionalInfo.id === "new";
 
    const removeComma = (value: number) => {
@@ -26,7 +31,9 @@ export default function CreateAdditionalInfoItem({
    }
 
    const handleAdd = () => {
-      setAdditionalInfo({ id: '', name, value: Number(removeComma(value)) });
+      const formattedName = additionalInfoType === AdditionalInfoType.PAYMENT ? name.trim() + ' - ' + user?.username : name.trim();
+
+      setAdditionalInfo({ id: '', userId: String(user?.id), name: formattedName, value: Number(removeComma(value)), type: additionalInfoType });
       setName("");
       setValue(0);
    }

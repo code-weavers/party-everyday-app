@@ -1,7 +1,6 @@
-import { formatBRDateTime, formatToTimestamp } from "@/utils";
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import DateTimePicker from '@react-native-community/datetimepicker';
 
 interface InputDatePickerProps {
 	value: Date;
@@ -20,7 +19,7 @@ export default function InputDatePicker({
 		<View style={styles.container}>
 			<DateTimePicker
 				value={value}
-				onChange={(event, date) => {					
+				onChange={(event, date) => {
 					if (date) setValue(date);
 				}}
 				mode={'datetime'}
@@ -38,7 +37,7 @@ export default function InputDatePicker({
 				</Pressable>
 				<Pressable
 					style={styles.button}
-					onPress={() => { setOpen(false)	}}
+					onPress={() => { setOpen(false) }}
 				>
 					<Text style={styles.text}>Confirm</Text>
 				</Pressable>
@@ -48,13 +47,13 @@ export default function InputDatePicker({
 }
 
 const styles = StyleSheet.create({
-	container: {		
+	container: {
 		justifyContent: "center",
 		alignItems: "center",
 	},
 	datepicker: {
 		margin: 16,
-	},	
+	},
 	buttonContainer: {
 		flexDirection: "row",
 		alignItems: "center",

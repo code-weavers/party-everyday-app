@@ -1,3 +1,4 @@
+import { AdditionalInfoType } from "@/enums";
 import { ICustomError } from "@/interfaces/customError.interface";
 import { IAdditionalInfo, ICreateAdditionalInfo } from "@/interfaces/party.interface";
 import { api } from "@/services/Axios";
@@ -9,7 +10,7 @@ import { useToast } from "../useToast";
 export const useCreateAdditionalInfo = (partyId: string) => {
    const { showToast } = useToast();
    const queryClient = useQueryClient();
-   const [additionalInfos, setAdditionalInfos] = useState<ICreateAdditionalInfo[]>([{ id: 'new', name: "", value: 0 }]);
+   const [additionalInfos, setAdditionalInfos] = useState<ICreateAdditionalInfo[]>([{ id: 'new', userId: '', name: "", value: 0, type: AdditionalInfoType.COST }]);
 
    const { mutate } = useMutation<IAdditionalInfo, AxiosError<ICustomError>>({
       mutationFn: async () => {
@@ -27,7 +28,7 @@ export const useCreateAdditionalInfo = (partyId: string) => {
             type: "success",
          });
 
-         setAdditionalInfos([{ id: 'new', name: "", value: 0 }]);
+         setAdditionalInfos([{ id: 'new', userId: '', name: "", value: 0, type: AdditionalInfoType.COST }]);
       },
       onError: (error) => {
          showToast({
