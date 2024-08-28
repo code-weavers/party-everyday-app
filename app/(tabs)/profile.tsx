@@ -30,7 +30,7 @@ export default function ProfileScreen() {
    const username = user.user?.username || '';
    const email = user.user?.email || '';
    const telephoneNumber = user.user?.phoneNumber || '';
-   const billingAccountKey = ''//user.user?.billingAccountKey || '';   
+   const billingAccountKey = ''
 
    return (
       <SafeContainer>
