@@ -2,6 +2,7 @@ import CustomSubTitle from "@/components/global/CustomSubTitle";
 import CustomTitle from "@/components/global/CustomTitle";
 import CustomModal from "@/components/global/Modal";
 import SafeContainer from "@/components/global/SafeContainer";
+import { AdditionalInfoType } from "@/enums";
 import { useCreateAdditionalInfo } from "@/hooks/party/useCreateAdditionalInfo";
 import { IAdditionalInfo } from "@/interfaces/party.interface";
 import { useState } from "react";
@@ -10,22 +11,24 @@ import CreateAdditionalInfoItem from "../CreateAdditionalInfoItem";
 
 interface IGuestItemListProps {
    partyId: string
+   label: string
+   type: AdditionalInfoType
 }
 
-export default function CreateAdditionalInfo({ partyId }: IGuestItemListProps) {
+export default function CreateAdditionalInfo({ label, partyId, type }: IGuestItemListProps) {
    const [visible, setVisible] = useState(false);
    const { additionalInfos, setAdditionalInfos, handleSubmit } = useCreateAdditionalInfo(partyId);
    const handleDelete = (additionalInfoId: string) => {
       setAdditionalInfos(additionalInfos.filter((info) => info.id !== additionalInfoId));
    };
    const handleCancel = () => {
-      setAdditionalInfos([{ id: 'new', name: "", value: 0 }]);
+      setAdditionalInfos([{ id: 'new', userId: '', name: "", value: 0, type }]);
    }
 
    return (
-      <View style={styles.container}>
+      <View style={styles.buttonContainer}>
          <Pressable onPress={() => setVisible(true)} style={styles.button}>
-            <Text style={styles.text}>Add info</Text>
+            <Text style={styles.text}>{label}</Text>
          </Pressable>
 
          <CustomModal visible={visible} setVisible={setVisible} onSubmit={handleSubmit} onCancel={handleCancel} >
@@ -43,6 +46,7 @@ export default function CreateAdditionalInfo({ partyId }: IGuestItemListProps) {
                            additionalInfo={item}
                            setAdditionalInfo={(additionalInfo: IAdditionalInfo) => setAdditionalInfos([...additionalInfos, additionalInfo])}
                            handleDelete={() => handleDelete(String(item.id))}
+                           additionalInfoType={type}
                         />
                      )}
                   />
@@ -54,31 +58,17 @@ export default function CreateAdditionalInfo({ partyId }: IGuestItemListProps) {
 }
 
 const styles = StyleSheet.create({
-   container: {
-      backgroundColor: "white",
-      marginVertical: 5,
-      borderBottomLeftRadius: 5,
-      borderBottomRightRadius: 5,
-      padding: 10,
-      width: "100%",
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "space-between",
-      alignSelf: "center",
-
-      shadowColor: "#000",
-      shadowOffset: {
-         width: 0,
-         height: 2,
-      },
-      shadowOpacity: 0.25,
-      shadowRadius: 3.84,
-      elevation: 5,
-   },
    listContainer: {
       flex: 1,
       backgroundColor: "white",
       paddingTop: 16,
+   },
+   buttonContainer: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+      width: "49%",
+
    },
    button: {
       backgroundColor: "#52c41a",

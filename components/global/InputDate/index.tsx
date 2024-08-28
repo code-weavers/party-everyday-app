@@ -53,13 +53,13 @@ export default function InputDate({
 							name={'calendar'}
 							size={20}
 							color="#000"
-							style={styles.icon}	
+							style={styles.icon}
 							onPress={() => {
 								setShowDatePicker(!showDatePicker);
 								setVisible(true);
 							}}
 						/>
-				</View>
+					</View>
 				)}
 			/>
 
@@ -83,13 +83,13 @@ const styles = StyleSheet.create({
 		padding: 16,
 
 		flexDirection: 'row',
-		alignItems: 'center',			
+		alignItems: 'center',
 	},
 	icon: {
 		marginRight: 10,
 	},
 	input: {
 		flex: 1,
-		fontSize: 16,		
+		fontSize: 16,
 	},
 });

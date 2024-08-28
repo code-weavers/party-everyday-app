@@ -1,17 +1,18 @@
 import SafeContainer from "@/components/global/SafeContainer";
 import PartyContent from "@/components/Party/Content";
 import PartyHeader from "@/components/Party/Header";
+import { useCheckout } from "@/hooks/party/useCheckout";
 import { useGetParty } from "@/hooks/party/useGetParty";
 import { useUserStore } from "@/hooks/useUserStore";
-import { useNavigation } from "@react-navigation/native";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function PartyContentScreen({ route }: any) {
 	const { id } = route.params;
 	const { party, isLoading } = useGetParty(id);
 	const { user } = useUserStore();
+	const { handleSubmit } = useCheckout(id);
 
-	const navigation = useNavigation();
+	const showCheckout = party?.ownerId === user?.id && party?.status === "ACTIVE";
 
 	return (
 		<SafeContainer>
@@ -26,14 +27,10 @@ export default function PartyContentScreen({ route }: any) {
 							<PartyContent party={party} />
 						</View>
 
-						{party.ownerId === user?.id && (
+						{showCheckout && (
 							<Pressable
 								style={styles.button}
-								onPress={() =>
-									navigation.navigate("PartyCheckoutScreen", {
-										id: String(party.id),
-									})
-								}
+								onPress={() => handleSubmit()}
 							>
 								<Text style={{ color: "white" }}>Checkout</Text>
 							</Pressable>

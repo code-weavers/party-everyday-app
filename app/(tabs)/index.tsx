@@ -1,11 +1,16 @@
 import SafeContainer from "@/components/global/SafeContainer";
 import PartyItemList from "@/components/Party/ItemList";
+import { usePermission } from "@/hooks/auth/usePermission";
 import { useGetAllInvitedParties } from "@/hooks/party/useGetAllInvitedParties";
 import { useGetAllOwnerParties } from "@/hooks/party/useGetAllOwnerParties";
+import { useNotificationStore } from "@/hooks/useNotificationStore";
+import { usePermissionStore } from "@/hooks/usePermissionStore";
 import { useUserStore } from "@/hooks/useUserStore";
+import { registerForPushNotificationsAsync } from "@/services/Notification";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { Tab, TabView } from "@rneui/themed";
-import { useState } from "react";
+import * as Notifications from 'expo-notifications';
+import { useEffect, useRef, useState } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 
 export default function HomeScreen() {
@@ -14,6 +19,38 @@ export default function HomeScreen() {
 	const { ownerParties, isLoading, refetch: ownerPartiesRefetch } = useGetAllOwnerParties();
 	const { invitedParties, refetch: invitedPartiesRefecth } = useGetAllInvitedParties(String(user?.id));
 	const [refreshing, setRefreshing] = useState(false);
+
+	const { expoPushToken, setExpoPushToken } = usePermissionStore();
+	const notificationListener = useRef<Notifications.Subscription>();
+	const responseListener = useRef<Notifications.Subscription>();
+	const { setNotification } = useNotificationStore();
+	const { handleSubmit: setPushNotificationToUser } = usePermission();
+
+	useEffect(() => {
+		registerForPushNotificationsAsync()
+			.then(token => {
+				setExpoPushToken(token ?? '');
+				setPushNotificationToUser({ pushNotificationToken: token ?? '' });
+			})
+			.catch((error: any) => setExpoPushToken(`${error}`));
+
+		notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+			setNotification(notification);
+		});
+
+		responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+			console.log(response);
+		});
+
+		return () => {
+			notificationListener.current &&
+				Notifications.removeNotificationSubscription(notificationListener.current);
+			responseListener.current &&
+				Notifications.removeNotificationSubscription(responseListener.current);
+		};
+	}, []);
+
+
 
 	const onOwnerPartiesRefresh = () => {
 		setRefreshing(true);
@@ -62,6 +99,7 @@ export default function HomeScreen() {
 								data={ownerParties}
 								renderItem={({ item }) => <PartyItemList party={item} />}
 								keyExtractor={(item) => String(item.id)}
+								style={styles.flatlist}
 							/>
 						</TabView.Item>
 						<TabView.Item style={{ width: "100%" }}>
@@ -71,13 +109,13 @@ export default function HomeScreen() {
 								data={invitedParties}
 								renderItem={({ item }) => <PartyItemList party={item} />}
 								keyExtractor={(item) => String(item.id)}
+								style={styles.flatlist}
 							/>
 						</TabView.Item>
 					</TabView>
 				</View>
 			</View>
 		</SafeContainer>
-
 	);
 }
 
@@ -87,6 +125,11 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		alignItems: "center",
 		backgroundColor: "#fff",
+	},
+	flatlist: {
+		flex: 1,
+		width: "100%",
+		top: 10,
 	},
 	list: {
 		flex: 1,

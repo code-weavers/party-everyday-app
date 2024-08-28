@@ -21,7 +21,7 @@ export default function InputMap({
 	const [search, setSearch] = useState<string>("");
 	const [visible, setVisible] = useState(false);
 
-	useEffect(() => {}, [location]);
+	useEffect(() => { }, [location]);
 
 	return (
 		<>
@@ -133,14 +133,14 @@ const style = StyleSheet.create({
 		padding: 16,
 
 		flexDirection: 'row',
-		alignItems: 'center',			
+		alignItems: 'center',
 	},
 	icon: {
 		marginRight: 10,
 	},
 	input: {
 		flex: 1,
-		fontSize: 16,		
+		fontSize: 16,
 	},
 	container: {
 		flex: 1,

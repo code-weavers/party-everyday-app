@@ -47,10 +47,11 @@ export default function GuestListScreen({
 	const handleNext = async () => {
 		const selectedGuests = guests.filter((guest) => guest.selected);
 
-		setParty({
-			...party,
-			guests: selectedGuests,
-		});
+		// @ts-ignore
+		selectedGuests.push({ user, selected: true });
+
+		// @ts-ignore
+		setParty({ ...party, guests: selectedGuests });
 
 		onNext();
 	};
