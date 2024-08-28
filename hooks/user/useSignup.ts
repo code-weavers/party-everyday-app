@@ -1,4 +1,5 @@
 import { ICustomError } from '@/interfaces/customError.interface';
+import { IImagePickerAsset } from '@/interfaces/file.interface';
 import { IUserSignupResponse } from '@/interfaces/user.interface';
 import { api } from '@/services/Axios';
 import StorageUtils from '@/utils/storage.utils';
@@ -6,6 +7,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useState } from 'react';
 import { useToast } from '../useToast';
+
 
 export const useSignup = () => {
    const toaster = useToast();
@@ -16,22 +18,25 @@ export const useSignup = () => {
    const [confirmPassword, setConfirmPassword] = useState('');
    const [email, setEmail] = useState('');
    const [telephoneNumber, setTelephoneNumber] = useState('');
-   //const [file, setFile] = useState<IImagePickerAsset>();
+   const [billingAccountKey, setBillingAccountKey] = useState('');
+   const [file, setFile] = useState<IImagePickerAsset>();
 
    const { mutate } = useMutation<IUserSignupResponse, AxiosError<ICustomError>>({
       mutationFn: async () => {
          const formData = new FormData();
 
-         /*if (file)
+         if (file)
+            // @ts-ignore
             formData.append('file', {
                uri: file?.uri,
                name: file?.fileName || 'image.jpg',
                type: file?.mimeType,
-            });*/
+            });
 
          formData.append('username', username);
          formData.append('email', email);
          formData.append('telephoneNumber', telephoneNumber);
+         formData.append('billingAccountKey', billingAccountKey);
          formData.append('password', password);
 
          const { data } = await api.post<IUserSignupResponse>('/users', formData, {
@@ -77,11 +82,13 @@ export const useSignup = () => {
       setEmail,
       telephoneNumber,
       setTelephoneNumber,
+      billingAccountKey,
+      setBillingAccountKey,
       password,
       setPassword,
       confirmPassword,
       setConfirmPassword,
-      //setFile,
+      setFile,
       handleSubmit,
    };
 };

@@ -19,6 +19,7 @@ export default function PartyContent({ party }: PartyContentProps) {
 	const [index, setIndex] = useState(0);
 	const { users } = useGetAllUsers();
 	const isOwner = party.ownerId === user?.id;
+	const isOwnerAndActive = isOwner && party.status === "ACTIVE";
 
 	return (
 		<>
@@ -70,7 +71,7 @@ export default function PartyContent({ party }: PartyContentProps) {
 						<FlatList
 							data={party.additionalInfo}
 							renderItem={({ item }) => (
-								<AdditionalInfoItem partyId={String(party.id)} additionalInfo={item} canDelete={isOwner} />
+								<AdditionalInfoItem partyId={String(party.id)} additionalInfo={item} canDelete={isOwnerAndActive} />
 							)}
 							keyExtractor={(item) => item.name}
 							style={styles.flatlist}

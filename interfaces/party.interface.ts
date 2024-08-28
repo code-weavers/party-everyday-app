@@ -8,6 +8,7 @@ export interface IParty {
    name: string;
    date?: string;
    description: string;
+   status?: string;
    address: IAddress;
    guests?: IGuest[];
    additionalInfo?: IAdditionalInfo[];

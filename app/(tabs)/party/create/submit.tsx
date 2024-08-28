@@ -10,6 +10,7 @@ export default function PartySubmitScreen() {
    const dimensions = Dimensions.get("window");
    const navigation = useNavigation();
 
+
    useEffect(() => {
       setTimeout(() => {
          navigation.navigate("HomeScreen");

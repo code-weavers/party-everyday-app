@@ -6,6 +6,7 @@ export interface IUser {
    username: string;
    email: string;
    phoneNumber?: string;
+   pushNotificationToken?: string;
    file?: IFile;
    bankInfo?: IBankInfo
 }

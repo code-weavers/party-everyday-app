@@ -43,7 +43,6 @@ export const useCreateParty = (party: IParty) => {
       },
       onSuccess: (data) => {
          queryClient.refetchQueries({ queryKey: ['parties'] });
-         queryClient.refetchQueries({ queryKey: ['party'] });
       },
       onError: (error) => {
          showToast({
