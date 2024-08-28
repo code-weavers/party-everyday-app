@@ -1,35 +1,52 @@
-import { TextInput } from "@react-native-material/core";
-import { StyleSheet } from "react-native";
+import { StyleProp, StyleSheet, TextInput, TextStyle, View } from "react-native";
 
 interface InputTextProps {
-   label: string;
-   placeholder: string;
-   value: string;
-   setValue: (text: string) => void;
+	placeholder: string;
+	value: string;
+	setValue: (text: string) => void;
+	styleProps?: StyleProp<TextStyle>;
 }
 
 export default function InputText({
-   label,
-   placeholder,
-   value,
-   setValue,
+	placeholder,
+	value,
+	setValue,
+	styleProps,
 }: InputTextProps) {
-   return (
-      <TextInput
-         variant={"outlined"}
-         label={label}
-         placeholder={placeholder}
-         value={value}
-         onChangeText={(text) => setValue(text)}
-         style={styles.input}
-      />
-   );
+	return (
+		<View style={styles.container}>
+			<TextInput
+				placeholder={placeholder}
+				placeholderTextColor={"#000"}
+				value={value}
+				onChangeText={(text) => { setValue(text) }}
+				autoCorrect={true}
+				autoCapitalize="none"
+				style={[styles.input, styleProps]}
+			/>
+		</View>
+	);
 }
 
 const styles = StyleSheet.create({
-   input: {
-      marginTop: 16,
-      marginLeft: 16,
-      marginRight: 16,
-   },
+	container: {
+		borderWidth: 1,
+		borderColor: "#000",
+		borderRadius: 5,
+
+		marginTop: 16,
+		marginLeft: 16,
+		marginRight: 16,
+		padding: 16,
+
+		flexDirection: 'row',
+		alignItems: 'center',
+	},
+	icon: {
+		marginRight: 10,
+	},
+	input: {
+		flex: 1,
+		fontSize: 16,
+	},
 });

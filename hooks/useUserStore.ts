@@ -8,15 +8,6 @@ type UserState = {
 };
 
 export const useUserStore = create<UserState>((set) => ({
-   user: {
-      id: "1",
-      username: "",
-      email: "",
-      file: {
-         url: "",
-      },
-      createdAt: "",
-      updatedAt: "",
-   },
+   user: undefined,
    setUser: (user) => set({ user }),
 }));

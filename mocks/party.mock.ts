@@ -10,14 +10,14 @@ export const parties: IParty[] = [
       description: 'Description 1',
       address: {
          id: '1',
-         postalCode: '00000-000',
+         zipCode: '00000-000',
          street: 'Rua dos Bobos',
          number: '0',
          city: 'São Paulo',
          state: 'SP',
          country: 'Brazil',
-         latitude: -23.5505199,
-         longitude: -46.6333094,
+         lat: '-23.5505199',
+         lng: '-46.6333094',
       },
       additionalInfo: [
          { id: 'new', name: '', value: 0, createdAt: '' },
@@ -65,14 +65,14 @@ export const parties: IParty[] = [
       description: 'Description 2',
       address: {
          id: '2',
-         postalCode: '00000-000',
+         zipCode: '00000-000',
          street: 'Rua dos Queros-Queros',
          number: '1',
          city: 'Fernandopolis',
          state: 'SP',
          country: 'Brazil',
-         latitude: -20.264911445322404,
-         longitude: -50.24386374976725,
+         lat: '-20.264911445322404',
+         lng: '-50.24386374976725',
       },
       additionalInfo: [
          { id: 'new', name: '', value: 0, createdAt: '' },
@@ -120,14 +120,14 @@ export const parties: IParty[] = [
       description: 'Description 3',
       address: {
          id: '3',
-         postalCode: '00000-000',
+         zipCode: '00000-000',
          street: 'Rua dos Bobos',
          number: '0',
          city: 'São Paulo',
          state: 'SP',
          country: 'Brazil',
-         latitude: -23.5505199,
-         longitude: -46.6333094,
+         lat: '-23.5505199',
+         lng: '-46.6333094',
       }
    },
    {
@@ -138,14 +138,14 @@ export const parties: IParty[] = [
       description: 'Description 4',
       address: {
          id: '3',
-         postalCode: '00000-000',
+         zipCode: '00000-000',
          street: 'Rua dos Bobos',
          number: '0',
          city: 'São Paulo',
          state: 'SP',
          country: 'Brazil',
-         latitude: -23.5505199,
-         longitude: -46.6333094,
+         lat: '-23.5505199',
+         lng: '-46.6333094',
       }
    },
    {
@@ -156,14 +156,14 @@ export const parties: IParty[] = [
       description: 'Description 5',
       address: {
          id: '3',
-         postalCode: '00000-000',
+         zipCode: '00000-000',
          street: 'Rua dos Bobos',
          number: '0',
          city: 'São Paulo',
          state: 'SP',
          country: 'Brazil',
-         latitude: -23.5505199,
-         longitude: -46.6333094,
+         lat: '-23.5505199',
+         lng: '-46.6333094',
       }
    },
    {
@@ -174,14 +174,14 @@ export const parties: IParty[] = [
       description: 'Description 6',
       address: {
          id: '3',
-         postalCode: '00000-000',
+         zipCode: '00000-000',
          street: 'Rua dos Bobos',
          number: '0',
          city: 'São Paulo',
          state: 'SP',
          country: 'Brazil',
-         latitude: -23.5505199,
-         longitude: -46.6333094,
+         lat: '-23.5505199',
+         lng: '-46.6333094',
       },
       additionalInfo: [
          { id: 'new', name: '', value: 0, createdAt: '' },

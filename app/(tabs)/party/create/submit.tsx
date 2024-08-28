@@ -3,17 +3,17 @@ import LottieView from "lottie-react-native";
 import React, { useEffect, useRef } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
 
-const animationUrl = require("../../../assets/animations/submit-animation.json");
+const animationUrl = require("../../../../assets/animations/submit-animation.json");
 
 export default function PartySubmitScreen() {
    const animation = useRef(null);
    const dimensions = Dimensions.get("window");
    const navigation = useNavigation();
 
+
    useEffect(() => {
       setTimeout(() => {
-         // redirect to home
-         navigation.navigate("Home");
+         navigation.navigate("HomeScreen");
       }, 2000);
    }, []);
 

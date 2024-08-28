@@ -6,11 +6,12 @@ export interface IUser {
    username: string;
    email: string;
    phoneNumber?: string;
-   file: IFile;
+   pushNotificationToken?: string;
+   file?: IFile;
    bankInfo?: IBankInfo
 }
 
-export interface IUserLoginRequest {
+export interface IAuthCredentials {
    email: string;
    password: string;
 }
@@ -27,6 +28,7 @@ export interface IUserSignupResponse {
    id: string;
    email: string;
    username: string;
+   telephoneNumber: string;
    file: IFile;
    password: string;
    accessToken: string;

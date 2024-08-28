@@ -1,44 +1,78 @@
+import SafeContainer from "@/components/global/SafeContainer";
+import { useColorScheme } from "@/hooks/useColorScheme";
+import { initSocket } from "@/services/Socket";
 import {
-   DarkTheme,
-   DefaultTheme,
-   ThemeProvider,
+	DarkTheme,
+	DefaultTheme,
+	ThemeProvider,
+	useNavigation,
 } from "@react-navigation/native";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useFonts } from "expo-font";
+import * as Notifications from 'expo-notifications';
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import "react-native-reanimated";
 
-import CustomSafeAreaView from "@/components/SafeAreaView";
-import { useColorScheme } from "@/hooks/useColorScheme";
+Notifications.setNotificationHandler({
+	handleNotification: async () => ({
+		shouldShowAlert: true,
+		shouldPlaySound: false,
+		shouldSetBadge: false,
+	}),
+});
+
+initSocket();
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-   const colorScheme = useColorScheme();
-   const [loaded] = useFonts({
-      SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
-   });
+	const navigation = useNavigation();
+	const navigationRef = useRef(navigation);
 
-   useEffect(() => {
-      if (loaded) {
-         SplashScreen.hideAsync();
-      }
-   }, [loaded]);
+	useEffect(() => {
+		const subscription = Notifications.addNotificationResponseReceivedListener(response => {
+			const { screen, params } = response.notification.request.content.data;
+			if (screen && navigationRef.current) {
+				navigationRef.current.navigate(screen, params);
+			}
+		});
 
-   if (!loaded) {
-      return null;
-   }
+		return () => subscription.remove();
+	}, []);
 
-   return (
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-         <CustomSafeAreaView>
-            <Stack>
-               <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-               <Stack.Screen name="+not-found" />
-            </Stack>
-         </CustomSafeAreaView>
-      </ThemeProvider>
-   );
+	const colorScheme = useColorScheme();
+	const [loaded] = useFonts({
+		SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+	});
+
+	useEffect(() => {
+		if (loaded) {
+			SplashScreen.hideAsync();
+		}
+	}, [loaded]);
+
+	if (!loaded) {
+		return null;
+	}
+
+	const queryClient = new QueryClient();
+
+	return (
+		<ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+			<SafeContainer>
+				<QueryClientProvider client={queryClient}>
+					<Stack>
+						<Stack.Screen
+							name="(tabs)"
+							options={{ headerShown: false }}
+						/>
+						<Stack.Screen name="+not-found" />
+					</Stack>
+				</QueryClientProvider>
+			</SafeContainer>
+		</ThemeProvider>
+	);
 }

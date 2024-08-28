@@ -1,55 +1,54 @@
-import PartyItemList from "@/components/Party/ItemList";
 import CustomTitle from "@/components/global/CustomTitle";
+import FindParties from "@/components/Party/FindParties";
 import { useGetAllParties } from "@/hooks/party/useGetAllParties";
+import { IParty } from "@/interfaces/party.interface";
 import { useNavigation } from "@react-navigation/native";
-import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function PartyScreen() {
-   const navigation = useNavigation();
-   const { parties } = useGetAllParties();
+	const navigation = useNavigation();
+	const { parties } = useGetAllParties();
 
-   return (
-      <View style={styles.container}>
-         <CustomTitle title={"Party Screen"} />
+	return (
+		<View style={styles.container}>
+			<CustomTitle title={"Find or Create parties"} />
 
-         <View style={styles.flatList}>
-            <FlatList
-               data={parties}
-               renderItem={({ item }) => <PartyItemList party={item} />}
-               keyExtractor={(item) => item.id}
-            />
-         </View>
+			<View>
+				<FindParties parties={parties as IParty[]} />
+			</View>
 
-         <Pressable
-            style={styles.button}
-            onPress={() => navigation.navigate("CreatePartyScreen")}
-         >
-            <Text style={{ color: "white", textAlign: "center", fontSize: 16 }}>
-               New Party!
-            </Text>
-         </Pressable>
-      </View>
-   );
+			<Pressable
+				style={styles.button}
+				onPress={() => navigation.navigate("CreatePartyScreen")}
+			>
+				<Text style={{ color: "white", textAlign: "center", fontSize: 16 }}>
+					New Party!
+				</Text>
+			</Pressable>
+		</View>
+	);
 }
 
 const styles = StyleSheet.create({
-   container: {
-      flex: 1,
-      alignItems: "center",
-      backgroundColor: "#fff",
-   },
-   flatList: {
-      flex: 1,
-      maxHeight: "65%",
-      width: "100%",
-      top: 10,
-   },
-   button: {
-      backgroundColor: "black",
-      padding: 16,
-      top: 50,
-      borderRadius: 5,
-      elevation: 2,
-      width: "90%",
-   },
+	container: {
+		flex: 1,
+		alignItems: "center",
+		backgroundColor: "white",
+	},
+	buttonContainer: {
+		flex: 1,
+		justifyContent: "center",
+		alignItems: "center",
+		backgroundColor: "blue",
+	},
+	button: {
+		backgroundColor: "black",
+		padding: 16,
+		borderRadius: 5,
+		elevation: 2,
+		width: "90%",
+
+		position: "absolute",
+		bottom: 120,
+	},
 });

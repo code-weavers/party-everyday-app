@@ -2,9 +2,9 @@ import type { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import type { CompositeScreenProps } from "@react-navigation/native";
 
 export type RootStackParamList = {
-   SignUp: undefined;
-   SignIn: undefined;
-   Home: undefined;
+   SignUpScreen: undefined;
+   SignInScreen: undefined;
+   HomeScreen: undefined;
    PartyScreen: undefined;
    CreatePartyScreen: undefined;
    PartyContentScreen: PartyContentScreenProps;
@@ -20,7 +20,7 @@ export type HomeTabParamList = {
 export type HomeTabScreenProps<T extends keyof HomeTabParamList> =
    CompositeScreenProps<
       BottomTabScreenProps<HomeTabParamList, T>,
-      BottomTabScreenProps<RootStackParamList, "Home">
+      BottomTabScreenProps<RootStackParamList, "HomeScreen">
    >;
 
 type PartyContentScreenProps = {
@@ -33,6 +33,6 @@ type PartyCheckoutScreenProps = {
 
 declare global {
    namespace ReactNavigation {
-      interface RootParamList extends RootStackParamList {}
+      interface RootParamList extends RootStackParamList { }
    }
 }
