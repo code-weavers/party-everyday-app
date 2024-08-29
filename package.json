@@ -10,7 +10,8 @@
     "web": "expo start --web",
     "test": "jest --watchAll",
     "lint": "expo lint",
-    "tunnel": "npx expo start --tunnel"
+    "tunnel": "npx expo start --tunnel",
+    "postinstall": "rm -rf ./node_modules/expo/node_modules/expo-font/"
   },
   "jest": {
     "preset": "jest-expo"

@@ -13,12 +13,11 @@ interface IGuestItemListProps {
 
 export default function GuestItemList({ partyId, guest, canDelete }: IGuestItemListProps) {
    const { handleSubmit } = useRemoveGuest(partyId, String(guest.id));
+   const avatar = guest.user.file?.url || "https://randomuser.me/api/portraits/men/33.jpg"
 
    return (
       <ListItem style={styles.container}>
-         <Avatar
-            source={{ uri: "https://randomuser.me/api/portraits/men/33.jpg" }}
-         />
+         <Avatar source={{ uri: avatar }} />
          <ListItem.Content>
             <ListItem.Title style={{ color: "black", fontWeight: "bold" }}>
                {guest.user.username}
@@ -26,7 +25,7 @@ export default function GuestItemList({ partyId, guest, canDelete }: IGuestItemL
             <ListItem.Subtitle
                style={{ color: "black", fontWeight: "condensed" }}
             >
-               {formatStatus(String(guest.status))}
+               {formatStatus(String('ACCEPTED'))}
             </ListItem.Subtitle>
          </ListItem.Content>
 

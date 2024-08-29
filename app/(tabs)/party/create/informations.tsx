@@ -65,8 +65,6 @@ export default function InformationPartyScreen({
 			},
 		});
 
-		console.log('Informações');
-
 		onNext();
 	};
 

@@ -1,0 +1,40 @@
+{
+   "type": "service_account",
+   "project_id": "developer-427502",
+   "private_key_id": "1f212de8f1363978ad500b47371a8872e2b6b4e3",
+   "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCkM2VmAYgWOjkG\nZ9r+LLLynXlQPzSuqX2T2/Ja9sCzk39Ayb3nkm6N5F01bwjyN/7zYo3dgcaDboWr\nk4sRjsfsEs0iNh7XjkEi5Zwm985D6fUXa2GZJni8eWfAngNplvsX5SkHmRGCy8t5\niunU5090fiI3/xEKrwKYhye0V2Fz8l8+soa4cXTpvZLW9WhaD0mrhOoa9r4TEWAR\nE9jLt6RmcOARSzCrRU2idf05aracwVPKiOR+g0bidvXJeVM77GKr/eFFuya/WrGD\nI+AeYnoIh3lcmqN8+6KGL3YlKdBqA1ef32PyyExDrwuTGpeqn1bsa6Dbk/AoBqPU\nhnABrUBHAgMBAAECggEAA2swhsWsZC4VJt19sUIT/boqnvGZ8rMDstLnAl7V10dQ\nZHRu2EXzuE+TYzvrF0P0MnQQWRbNH8pqzQ423Ig5AGDJ1ZcD4GANWiEmtab+K+rQ\nmAq7zvj+lYn/j4KatpWWp8I1LvvQYgVFOMQcJzsjq9y+cKUGYU8QgkV6HaaeGFBg\ngCC5GzgxSbC35rUsGwXJmcT3Ex5q3aDjFnfjjh9NjuIjhtQfB9pp7WG525DdObnE\nebPOUuyr7SIPRGc3WNFa65vwRLAz8jtlwiggJX+CreK8VD8oK1dxsA0BPB1gyuDF\nqvTg5SBGqkyfUsObB6awfOg9CSl9WPNnlrY0eO0sXQKBgQDXLtrIVa81tfnA2w1Z\nUFO3ArLlfXJtSx7Vb+dVnKIkeeWAFR2yGZDcLhhpBmzRH2OSRhYYyut+pmiHmkTT\n1gC7j/OXOIVIVzMLq09azhdMmhsUIY5ms8S0ARWvBuZ92L5A8YKIkBgLg3iAVlnC\nQVmaQs4RxC8RqeR7zEJyUAig3QKBgQDDWOBsgLiVVtkA5sk7L0aSdg7tneTAlzbK\n6ikJg4mBY9SPvTSObWlwRf757OBK4OWlGXSSt6Cgx0TbehD92AvIswCmbY5NxK2b\nO5GsUHOrPxEUp03TEMSrQtYu2LsJuZhJe1Ko6pVGjYDQ9RkNFaYlDUpE0JCU3Xz0\nUpmCOAqhcwKBgDGfK3KxV7MyIMMZgK2M+ZElfS2wzRdpEFY19QnoEfgJaCQuOmfc\nv2wW8SgfBC8BZwvPP7895CqTo11J9P9IxWh7XLgNn6a7/Rh+y9Dr37GZhA8TYexL\nHlxIN8Dh/Xsd5VnCl9B4MiNNkRc/UnmaalhJeY3dSOFw5TCrPNNxo1u9AoGAKPR9\nOMJT8Jtgq5u3HL1wokw2HQM5bldFmY02RVRag9IWQnx8hE/UB0Hljyhmbcxw2QhZ\nNFljR9H/UbRp0450CgPdYwcdCpjtfNokVGgZmBGE1zusSU/+q5k7pl6x9/v9PYqp\nbdigq0YHd8erFN8xEhuTMpI3fb5h8CdRH8f4EpkCgYBXtAr6uxm2Y6AqM2DnXBOm\n0fgwH5AMBTWa8gh9jo2Dg6vBB+GPOnIflS9C6XwcBzR02a9sDedRhKKBd/56+lNm\n4+E6SkK7NmHkOXx0Fzx6rRif2rKq+TPnCsukbjFcQaQfdHc4JXcIgLA+mGNh5T7y\nlmp9asg+Dwb0YGKTJeLVgA==\n-----END PRIVATE KEY-----\n",
+   "client_email": "party-everyday@developer-427502.iam.gserviceaccount.com",
+   "client_id": "101573342212887221286",
+   "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+   "token_uri": "https://oauth2.googleapis.com/token",
+   "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+   "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/party-everyday%40developer-427502.iam.gserviceaccount.com",
+   "universe_domain": "googleapis.com",
+   "project_info": {
+      "project_number": "842678997142",
+      "project_id": "party-everyday-9fabf",
+      "storage_bucket": "party-everyday-9fabf.appspot.com"
+   },
+   "client": [
+      {
+         "client_info": {
+            "mobilesdk_app_id": "1:842678997142:android:96a7dbce288609c495f2b7",
+            "android_client_info": {
+               "package_name": "com.codeweavers.partyeveryday"
+            }
+         },
+         "oauth_client": [],
+         "api_key": [
+            {
+               "current_key": "AIzaSyATL2Cc4lp_a-r8uoBnNNnZaJpvjK8_nNY"
+            }
+         ],
+         "services": {
+            "appinvite_service": {
+               "other_platform_oauth_client": []
+            }
+         }
+      }
+   ],
+   "configuration_version": "1"
+}

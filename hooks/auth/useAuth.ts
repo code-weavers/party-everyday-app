@@ -34,6 +34,9 @@ export const useAuth = () => {
             id: data.id,
             username: data.username,
             email: data.email,
+            pushNotificationToken: data.pushNotificationToken,
+            telephoneNumber: data.telephoneNumber,
+            billingAccountKey: data.billingAccountKey,
             file: data.file,
          });
       },

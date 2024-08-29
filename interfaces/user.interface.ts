@@ -1,14 +1,13 @@
-import { IBankInfo } from "./bank.interface";
 import { IFile } from "./file.interface";
 
 export interface IUser {
    id: string;
    username: string;
    email: string;
-   phoneNumber?: string;
+   telephoneNumber?: string;
+   billingAccountKey?: string;
    pushNotificationToken?: string;
    file?: IFile;
-   bankInfo?: IBankInfo
 }
 
 export interface IAuthCredentials {
@@ -20,6 +19,9 @@ export interface IUserLoginResponse {
    id: string;
    username: string;
    email: string;
+   telephoneNumber?: string;
+   billingAccountKey?: string;
+   pushNotificationToken?: string;
    file: IFile;
    accessToken: string;
 }
