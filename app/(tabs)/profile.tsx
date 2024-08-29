@@ -1,15 +1,14 @@
 import ImagePicker from "@/components/global/AvatarPicker";
 import CustomTitle from "@/components/global/CustomTitle";
+import InputDisplay from "@/components/global/InputDisplay";
 import SafeContainer from "@/components/global/SafeContainer";
 import { useAuth } from "@/hooks/auth/useAuth";
+import { useUpdateAvatar } from "@/hooks/user/useUpdateUserAvatar";
 import { useUserStore } from "@/hooks/useUserStore";
-import { IImagePickerAsset } from "@/interfaces/file.interface";
-import { useState } from "react";
 import {
    Pressable,
    StyleSheet,
    Text,
-   TextInput,
    View
 } from "react-native";
 
@@ -25,12 +24,12 @@ type FormData = {
 export default function ProfileScreen() {
    const user = useUserStore();
    const { logout } = useAuth();
-   const [file, setFile] = useState<IImagePickerAsset>();
+   const { setFile, handleSubmit } = useUpdateAvatar(user.user?.id || '');
 
    const username = user.user?.username || '';
    const email = user.user?.email || '';
-   const telephoneNumber = user.user?.phoneNumber || '';
-   const billingAccountKey = ''
+   const telephoneNumber = user.user?.telephoneNumber || '';
+   const billingAccountKey = user.user?.billingAccountKey || '';
 
    return (
       <SafeContainer>
@@ -38,10 +37,14 @@ export default function ProfileScreen() {
             <View style={styles.form}>
                <CustomTitle title="Perfil" />
 
-               <ImagePicker setValue={setFile} uri={user.user?.file?.url} isEnable={false} />
+               <ImagePicker setValue={setFile} uri={user.user?.file?.url} handleSubmmit={handleSubmit} />
 
-               <TextInput placeholder={username} editable={false} style={styles.input} />
-               <TextInput placeholder={email} editable={false} style={styles.input} />
+               <View>
+                  <InputDisplay label="Nome" text={username} />
+                  <InputDisplay label="E-mail" text={email} />
+                  <InputDisplay label="Número de Telefone" text={telephoneNumber} />
+                  <InputDisplay label="Chave PIX" text={billingAccountKey} isCopyable={true} />
+               </View>
             </View>
 
             <Pressable
@@ -67,14 +70,6 @@ const styles = StyleSheet.create({
       flex: 1,
       width: "100%",
       top: 10,
-   },
-   input: {
-      borderRadius: 5,
-      borderWidth: 1,
-      borderColor: "black",
-      padding: 10,
-      marginTop: 10,
-      marginBottom: 10,
    },
    button: {
       backgroundColor: "black",

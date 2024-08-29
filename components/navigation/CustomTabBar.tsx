@@ -1,5 +1,4 @@
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Platform, StyleSheet, TouchableOpacity, View } from "react-native";
 
 interface CustomTabBarProps {

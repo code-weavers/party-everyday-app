@@ -41,12 +41,12 @@ export default function MapViewer({ location, setRegion }: MapViewerProps) {
 				longitudeDelta: latDelta,
 			}}
 			showsUserLocation={true}
-			onRegionChangeComplete={(region) => {
+			/*onRegionChangeComplete={(region) => {
 				handleChangeComplete({
 					lat: String(region.latitude),
 					lng: String(region.longitude),
 				});
-			}}
+			}}*/
 			onLongPress={(event) => {
 				handleChangeComplete({
 					lat: String(event.nativeEvent.coordinate.latitude),

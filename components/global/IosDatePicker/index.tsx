@@ -1,5 +1,5 @@
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { useState } from "react";
+import { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 interface InputDatePickerProps {
@@ -8,38 +8,33 @@ interface InputDatePickerProps {
 	setOpen: (open: boolean) => void;
 }
 
-export default function InputDatePicker({
+export default function InputIosDatePicker({
 	value,
 	setValue,
 	setOpen,
 }: InputDatePickerProps) {
-	const [selectedDate, setSelectedDate] = useState<string>("");
+	const [date, setDate] = useState(new Date());
+
+	const onChange = (event: any, selectedDate: any) => {
+		const currentDate = selectedDate || date;
+		setValue(currentDate);
+	};
 
 	return (
 		<View style={styles.container}>
 			<DateTimePicker
+				testID="iosDateTimePicker"
 				value={value}
-				onChange={(event, date) => {
-					if (date) setValue(date);
-				}}
 				mode={'datetime'}
-				style={styles.datepicker}
+				display="spinner"
+				onChange={onChange}
+				themeVariant={'light'}
+				locale='pt-BR'
 			/>
 
 			<View style={styles.buttonContainer}>
-				<Pressable
-					style={styles.button}
-					onPress={() => {
-						setOpen(false);
-					}}
-				>
-					<Text style={styles.text}>Cancel</Text>
-				</Pressable>
-				<Pressable
-					style={styles.button}
-					onPress={() => { setOpen(false) }}
-				>
-					<Text style={styles.text}>Confirm</Text>
+				<Pressable style={styles.button} onPress={() => setOpen(false)}>
+					<Text style={styles.text}>Pronto</Text>
 				</Pressable>
 			</View>
 		</View>
@@ -50,6 +45,7 @@ const styles = StyleSheet.create({
 	container: {
 		justifyContent: "center",
 		alignItems: "center",
+		height: 300,
 	},
 	datepicker: {
 		margin: 16,
@@ -59,7 +55,7 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "space-between",
 		width: "100%",
-		top: 10,
+		top: 16,
 	},
 	button: {
 		backgroundColor: "black",
@@ -72,4 +68,10 @@ const styles = StyleSheet.create({
 		color: "white",
 		textAlign: "center",
 	},
+	display: {
+		fontSize: 20,
+		textAlign: "center",
+		fontWeight: "bold",
+		margin: 16,
+	}
 });

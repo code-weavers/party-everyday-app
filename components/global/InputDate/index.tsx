@@ -3,8 +3,9 @@ import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { Dialog } from "@rneui/themed";
 import { useEffect, useState } from "react";
 import { Controller } from "react-hook-form";
-import { StyleSheet, TextInput, View } from "react-native";
-import InputDatePicker from "../DatePicker";
+import { Platform, StyleSheet, TextInput, View } from "react-native";
+import InputAndroidDatePicker from "../AndroidDatePicker";
+import InputIosDatePicker from "../IosDatePicker";
 
 interface InputDateProps {
 	label: string;
@@ -24,6 +25,7 @@ export default function InputDate({
 	const [date, setDate] = useState<Date>(new Date());
 	const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
 	const [visible, setVisible] = useState(false);
+	const platform = Platform.OS;
 
 	useEffect(() => {
 		setValue(date.toString());
@@ -64,8 +66,13 @@ export default function InputDate({
 			/>
 
 			<Dialog isVisible={visible} onBackdropPress={() => setVisible(false)}>
-				<Dialog.Title title="Select Date" />
-				<InputDatePicker setOpen={setVisible} value={new Date(value)} setValue={setDate} />
+				<Dialog.Title title="Selecione a data e horário" />
+
+				{platform === 'ios' && (
+					<InputIosDatePicker setOpen={setVisible} value={new Date(value)} setValue={setDate} />
+				) || platform === 'android' && (
+					<InputAndroidDatePicker setOpen={setVisible} value={new Date(value)} setValue={setDate} />
+				)}
 			</Dialog>
 		</>
 	);

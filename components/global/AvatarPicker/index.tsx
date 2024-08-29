@@ -12,9 +12,10 @@ interface ImagePickerProps {
    uri?: string;
    setValue: (fileResponse: IImagePickerAsset) => void;
    isEnable?: boolean;
+   handleSubmmit?: () => void;
 }
 
-export default function ImagePicker({ setValue, uri, isEnable }: ImagePickerProps) {
+export default function ImagePicker({ setValue, uri, isEnable = true, handleSubmmit }: ImagePickerProps) {
    const [fileResponse, setFileResponse] = useState<ImagePickerAsset>();
 
    const pickImage = async () => {
@@ -29,6 +30,7 @@ export default function ImagePicker({ setValue, uri, isEnable }: ImagePickerProp
       if (!result.canceled) {
          setFileResponse(result.assets[0]);
          setValue(result.assets[0]);
+         handleSubmmit && handleSubmmit();
       }
    };
 
